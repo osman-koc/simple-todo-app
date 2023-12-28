@@ -1,3 +1,4 @@
+import 'package:basictodoapp/lang/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../model/todo.dart';
@@ -45,9 +46,10 @@ class _HomeState extends State<Home> {
                           top: 50,
                           bottom: 20,
                         ),
-                        child: const Text(
-                          'All ToDos',
-                          style: TextStyle(
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate(key: 'header_allTodos'), //'All ToDos',
+                          style: const TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,
                           ),
@@ -93,9 +95,10 @@ class _HomeState extends State<Home> {
                   ),
                   child: TextField(
                     controller: _todoController,
-                    decoration: const InputDecoration(
-                        hintText: 'Add a new todo item',
-                        border: InputBorder.none),
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context).translate(key: 'add_new_item'), //'Add a new todo item',
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
               ),
@@ -210,7 +213,7 @@ class _HomeState extends State<Home> {
           width: 40,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset('assets/images/avatar.jpeg'),
+            child: Image.asset('assets/images/avatar.png'),
           ),
         ),
       ]),

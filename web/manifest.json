@@ -1,6 +1,6 @@
 {
-    "name": "BasicToDoApp",
-    "short_name": "BasicToDoApp",
+    "name": "basictodoapp",
+    "short_name": "basictodoapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
