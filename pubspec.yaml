@@ -1,4 +1,4 @@
-name: basictodoapp
+name: simpletodo
 description: Create ToDo list.
 
 publish_to: 'none'

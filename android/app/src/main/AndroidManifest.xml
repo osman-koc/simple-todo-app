@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.basictodoapp">
+    package="com.example.simpletodo">
    <application
-        android:label="basictodoapp"
+        android:label="simpletodo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

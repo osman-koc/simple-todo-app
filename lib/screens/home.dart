@@ -1,4 +1,4 @@
-import 'package:basictodoapp/lang/app_localizations.dart';
+import 'package:simpletodo/lang/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../model/todo.dart';
