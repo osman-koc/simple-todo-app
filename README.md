@@ -7,5 +7,5 @@ A basic to-do app built with Flutter. This app has add/delete/update functinalit
 <img src="flutter-todo-iphone.png" width="250px"></img>
 
 ## Source
-- [YouTube: Flutter ToDo App Tutorial for Beginners](https://youtu.be/K4P5DZ9TRns)
-- [Fork Repo: itzpradip/flutter-todo-app](https://github.com/itzpradip/flutter-todo-app)
+- YouTube: [Flutter ToDo App Tutorial for Beginners](https://youtu.be/K4P5DZ9TRns)
+- Fork Repo: [itzpradip/flutter-todo-app](https://github.com/itzpradip/flutter-todo-app)
