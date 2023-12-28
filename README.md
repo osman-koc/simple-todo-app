@@ -15,10 +15,24 @@ Welcome to the Simple ToDo App, a quick and easy-to-use task management applicat
    cd simple-todo-app
 
 ## Features
-- **Effortless Task Management:** Quickly add new tasks to your list and mark them as completed with a simple tap.
-- **Cross-Device Sync:** User-specific data ensures that your tasks are securely stored, allowing you to seamlessly access them from different devices without the fear of data loss.
-- **Intuitive User Interface:** The app boasts a user-friendly interface, making task management a breeze for users of all levels.
-- **Task Categorization:** Explore future updates that will introduce the ability to categorize your tasks, further enhancing your task management experience.
+1. **Task Management:**
+   - Users can register and log in to the app.
+   - Tasks can be added through a single-screen interface.
+   - Users can mark tasks as completed by tapping the checkbox, which crosses out the task.
+2. **Task Viewing:**
+   - All tasks are visible on a single screen for easy access.
+   - Quick task search is possible through the search box at the top.
+3. **Multilingual Support:**
+   - The app supports two languages: Turkish and English.
+   - The app automatically opens in the phone's language. If the language is other than Turkish or English, the default language is English.
+4. **User Account Integration:**
+   - Added tasks are saved in the user's account.
+   - Users can retrieve their tasks even after reinstalling the app or logging in from another device.
+5. **Technology Stack:**
+   - The app is developed using Flutter.
+   - Task data is securely saved using Firebase.
+6. **Future Enhancement:**
+   - An upcoming feature will allow users to categorize tasks for better organization.
 
 ## Acknowledgments
 - Tutorial by [Pradip Debnath](https://github.com/itzpradip)
