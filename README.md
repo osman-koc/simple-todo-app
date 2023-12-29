@@ -10,9 +10,18 @@ Welcome to the Simple ToDo App, a quick and easy-to-use task management applicat
 1. Clone the repository:
    ```bash
    git clone https://github.com/osman-koc/simple-todo-app.git
-3. Navigate to the project directory:
+   ```
+2. Navigate to the project directory:
    ```bash
    cd simple-todo-app
+   ```
+3. Running the app:
+   ```bash
+   flutter pub get
+   ```
+   ```bash
+   flutter run
+   ```
 
 ## Features
 1. **Task Management:**
