@@ -4,21 +4,25 @@ import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/constants/app_lang.dart';
 import 'package:simpletodo/lang/app_localizations.dart';
-import 'package:simpletodo/screens/home.dart';
-import 'package:simpletodo/screens/register.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  LoginPageState createState() => LoginPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    List socialImages = [
+      AppAssets.googleLogo,
+      AppAssets.twitterLogo,
+      AppAssets.facebookLogo
+    ];
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -27,73 +31,85 @@ class LoginPageState extends State<LoginPage> {
             headerContainer(screenWidth, screenHeight),
             inputsContainer(screenWidth, context),
             const SizedBox(height: 50),
-            loginBtnWidget(screenWidth, screenHeight, context),
+            loginBtnContainer(screenWidth, screenHeight, context),
             SizedBox(height: screenHeight * 0.07),
-            signupRichText(context),
+            signupWithAppRichText(context),
+            loginWithAppWrap(socialImages),
+            SizedBox(height: screenHeight * 0.03),
+            backToLoginText(context),
           ],
         ),
       ),
     );
   }
 
-  RichText signupRichText(BuildContext context) {
+  RichText backToLoginText(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text:
-            "${AppLocalizations.of(context).translate(key: AppLang.dontHaveAnAccount)} ",
-        style: TextStyle(
-          color: Colors.grey[500],
+        text: AppLocalizations.of(context).translate(key: AppLang.backToLogin),
+        style: const TextStyle(
+          color: Colors.blue,
           fontSize: 18,
         ),
-        children: [
-          TextSpan(
-            text: AppLocalizations.of(context).translate(key: AppLang.signup),
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                );
-              },
-          ),
-        ],
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            Navigator.pop(context);
+          },
       ),
     );
   }
 
-  Widget loginBtnWidget(
-      double screenWidth, double screenHeight, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
-      },
-      child: Container(
-        width: screenWidth * 0.5,
-        height: screenHeight * 0.08,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          image: const DecorationImage(
-            image: AssetImage(AppAssets.loginBtn),
-            fit: BoxFit.cover,
+  Wrap loginWithAppWrap(List<dynamic> socialImages) {
+    return Wrap(
+      children: List<Widget>.generate(
+        3,
+        (index) => Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.grey[200],
+            child: CircleAvatar(
+              radius: 26,
+              backgroundImage: AssetImage(socialImages[index]),
+            ),
           ),
         ),
-        child: Center(
-          child: Text(
-            AppLocalizations.of(context)
-                .translate(key: AppLang.signinButtonText),
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+      ),
+    );
+  }
+
+  RichText signupWithAppRichText(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        text: AppLocalizations.of(context)
+            .translate(key: AppLang.signupWithAppText),
+        style: TextStyle(
+          color: Colors.grey[500],
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+
+  Container loginBtnContainer(
+      double screenWidth, double screenHeight, BuildContext context) {
+    return Container(
+      width: screenWidth * 0.5,
+      height: screenHeight * 0.08,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        image: const DecorationImage(
+          image: AssetImage(AppAssets.loginBtn),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Center(
+        child: Text(
+          AppLocalizations.of(context).translate(key: AppLang.signupButtonText),
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),
@@ -107,14 +123,10 @@ class LoginPageState extends State<LoginPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          helloText(context),
-          signSubText(context),
           const SizedBox(height: 50),
           emailContainer(),
           const SizedBox(height: 20),
           passwordContainer(),
-          const SizedBox(height: 20),
-          forgotPasswordRow(context),
         ],
       ),
     );
@@ -234,9 +246,19 @@ class LoginPageState extends State<LoginPage> {
       height: screenHeight * 0.3,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppAssets.loginImg),
+          image: AssetImage(AppAssets.signUpHeader),
           fit: BoxFit.cover,
         ),
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: screenHeight * 0.16),
+          const CircleAvatar(
+            radius: 50,
+            backgroundColor: Colors.white70,
+            backgroundImage: AssetImage(AppAssets.profileImg),
+          ),
+        ],
       ),
     );
   }

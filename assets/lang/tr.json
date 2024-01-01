@@ -6,9 +6,12 @@
     "hello": "Merhaba",
     "signin_subtext": "Hesabına giriş yap",
     "forgot_your_password": "Şifreni mi unuttun?",
-    "signin_button_text": "Giriş",
+    "signin_button_text": "Giriş Yap",
+    "signup_button_text": "Kayıt Ol",
     "dont_have_an_account": "Hesabın yok mu?",
     "signup": "Kayıt ol",
     "email": "E-posta",
-    "password": "Şifre"
+    "password": "Şifre",
+    "signup_with_app_text": "Aşağıdaki yöntemlerden biriyle kaydol",
+    "back_to_login": "« Girişe Dön"
 }

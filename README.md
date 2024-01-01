@@ -4,7 +4,7 @@ Welcome to the Simple ToDo App, a quick and easy-to-use task management applicat
 
 ## Screenshot
 
-<img src="screenshot/login.jpg" width="250px"></img> <img src="screenshot/home.jpg" width="250px"></img>
+<img src="screenshot/login.jpg" width="200px"></img> <img src="screenshot/register.jpg" width="200px"></img> <img src="screenshot/home.jpg" width="200px"></img>
 
 ## Getting Started
 1. Clone the repository:
