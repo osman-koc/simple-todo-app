@@ -44,8 +44,8 @@ Welcome to the Simple ToDo App, a quick and easy-to-use task management applicat
    - An upcoming feature will allow users to categorize tasks for better organization.
 
 ## Acknowledgments
-- Tutorial by [Pradip Debnath](https://github.com/itzpradip)
-- Original Repository: [itzpradip/flutter-todo-app](https://github.com/itzpradip/flutter-todo-app)
+- Original Repository: [itzpradip/flutter-todo-app](https://github.com/itzpradip/flutter-todo-app) by [Pradip Debnath](https://github.com/itzpradip)
+- Reference for the login screen from: [dbestech](https://www.youtube.com/watch?v=o_ZeLqpqt90)
 
 <br />
 Thank you for choosing the Simple ToDo App. Happy tasking!
