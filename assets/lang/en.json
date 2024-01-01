@@ -1,5 +1,14 @@
 {
     "appName": "Basic ToDo App",
     "header_allTodos": "All ToDos",
-    "add_new_item": "Add a new todo item"
+    "add_new_item": "Add a new todo item",
+    "search": "Search",
+    "hello": "Hello",
+    "signin_subtext": "Sign into your account",
+    "forgot_your_password": "Forgot your password?",
+    "signin_button_text": "Sign in",
+    "dont_have_an_account": "Don't have an account?",
+    "signup": "Sign up",
+    "email": "Email",
+    "password": "Password"
 }

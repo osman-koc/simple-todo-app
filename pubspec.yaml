@@ -24,4 +24,15 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/login/
     - assets/lang/
+  fonts:
+    - family: FreestyleScript
+      fonts:
+        - asset: assets/fonts/FreeScript.ttf
+    - family: Exo
+      fonts:
+        - asset: assets/fonts/Exo_Medium.ttf
+          style: normal
+        - asset: assets/fonts/Exo_MediumItalic.ttf
+          style: italic

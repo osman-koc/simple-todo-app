@@ -1,8 +1,10 @@
+import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/lang/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import './screens/home.dart';
+import 'package:simpletodo/screens/home.dart';
+//import 'package:simpletodo/screens/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ToDo App',
-      home: const Home(),
+      home: const HomePage(),
+      theme: ThemeData(fontFamily: AppFontStyles.exo),
       supportedLocales: const [
         Locale('en', 'US'),
         Locale('tr', 'TR'),

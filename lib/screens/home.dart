@@ -1,3 +1,5 @@
+import 'package:simpletodo/constants/app_assets.dart';
+import 'package:simpletodo/constants/app_lang.dart';
 import 'package:simpletodo/lang/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -5,14 +7,14 @@ import '../model/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/todo_item.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   final todosList = ToDo.todoList();
   List<ToDo> _foundToDo = [];
   final _todoController = TextEditingController();
@@ -37,7 +39,7 @@ class _HomeState extends State<Home> {
             ),
             child: Column(
               children: [
-                searchBox(),
+                searchBox(context),
                 Expanded(
                   child: ListView(
                     children: [
@@ -48,7 +50,7 @@ class _HomeState extends State<Home> {
                         ),
                         child: Text(
                           AppLocalizations.of(context)
-                              .translate(key: 'header_allTodos'), //'All ToDos',
+                              .translate(key: AppLang.allTodos),
                           style: const TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,
@@ -96,7 +98,8 @@ class _HomeState extends State<Home> {
                   child: TextField(
                     controller: _todoController,
                     decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context).translate(key: 'add_new_item'), //'Add a new todo item',
+                      hintText: AppLocalizations.of(context)
+                          .translate(key: AppLang.addNewItem),
                       border: InputBorder.none,
                     ),
                   ),
@@ -127,6 +130,34 @@ class _HomeState extends State<Home> {
             ]),
           ),
         ],
+      ),
+    );
+  }
+
+  Container searchBox(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextField(
+        onChanged: (value) => _runFilter(value),
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(0),
+          prefixIcon: const Icon(
+            Icons.search,
+            color: tdBlack,
+            size: 20,
+          ),
+          prefixIconConstraints: const BoxConstraints(
+            maxHeight: 20,
+            minWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: AppLocalizations.of(context).translate(key: AppLang.search),
+          hintStyle: const TextStyle(color: tdGrey),
+        ),
       ),
     );
   }
@@ -170,34 +201,6 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Widget searchBox() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: TextField(
-        onChanged: (value) => _runFilter(value),
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.all(0),
-          prefixIcon: Icon(
-            Icons.search,
-            color: tdBlack,
-            size: 20,
-          ),
-          prefixIconConstraints: BoxConstraints(
-            maxHeight: 20,
-            minWidth: 25,
-          ),
-          border: InputBorder.none,
-          hintText: 'Search',
-          hintStyle: TextStyle(color: tdGrey),
-        ),
-      ),
-    );
-  }
-
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: tdBGColor,
@@ -213,7 +216,7 @@ class _HomeState extends State<Home> {
           width: 40,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset('assets/images/avatar.png'),
+            child: Image.asset(AppAssets.defaultUserAvatar),
           ),
         ),
       ]),

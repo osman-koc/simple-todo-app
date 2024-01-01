@@ -4,7 +4,7 @@ Welcome to the Simple ToDo App, a quick and easy-to-use task management applicat
 
 ## Screenshot
 
-<img src="flutter-todo-iphone.png" width="250px"></img>
+<img src="screenshot/login.jpg" width="250px"></img> <img src="screenshot/home.jpg" width="250px"></img>
 
 ## Getting Started
 1. Clone the repository:

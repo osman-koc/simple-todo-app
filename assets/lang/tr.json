@@ -1,5 +1,14 @@
 {
     "appName": "ToDo App",
     "header_allTodos": "Yapılacaklar",
-    "add_new_item": "Yeni ekle"
+    "add_new_item": "Yeni ekle",
+    "search": "Ara",
+    "hello": "Merhaba",
+    "signin_subtext": "Hesabına giriş yap",
+    "forgot_your_password": "Şifreni mi unuttun?",
+    "signin_button_text": "Giriş",
+    "dont_have_an_account": "Hesabın yok mu?",
+    "signup": "Kayıt ol",
+    "email": "E-posta",
+    "password": "Şifre"
 }
