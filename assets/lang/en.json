@@ -1,5 +1,5 @@
 {
-    "appName": "Basic ToDo App",
+    "app_name": "Simple ToDo App",
     "header_allTodos": "All ToDos",
     "add_new_item": "Add a new todo item",
     "search": "Search",
@@ -13,5 +13,9 @@
     "email": "Email",
     "password": "Password",
     "signup_with_app_text": "Sign up using on the following method",
-    "back_to_login": "« Back to Login"
+    "back_to_login": "« Back to Login",
+    "delete": "Delete",
+    "are_you_sure_for_delete": "Are you sure you want to delete this item?",
+    "no": "No",
+    "yes": "Yes"
 }

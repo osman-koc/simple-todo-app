@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simpletodo/constants/app_lang.dart';
+import 'package:simpletodo/lang/app_localizations.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
@@ -15,6 +17,33 @@ class ToDoItem extends StatelessWidget {
     required this.onDeleteItem,
   }) : super(key: key);
 
+  void _showDeleteConfirmationDialog(BuildContext context, String? todoId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context).translate(key: AppLang.delete)),
+          content: Text(AppLocalizations.of(context).translate(key: AppLang.areYouSureForDelete)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(AppLocalizations.of(context).translate(key: AppLang.no)),
+            ),
+            TextButton(
+              onPressed: () {
+                onDeleteItem(todoId);
+                Navigator.of(context).pop();
+              },
+              child: Text(AppLocalizations.of(context).translate(key: AppLang.yes)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,10 +57,10 @@ class ToDoItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        tileColor: Colors.white,
+        tileColor: tdInputBgColor,
         leading: Icon(
           todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
-          color: tdBlue,
+          color: tdGrey,
         ),
         title: Text(
           todo.todoText!,
@@ -46,17 +75,14 @@ class ToDoItem extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 12),
           height: 35,
           width: 35,
-          decoration: BoxDecoration(
-            color: tdRed,
-            borderRadius: BorderRadius.circular(5),
-          ),
           child: IconButton(
-            color: Colors.white,
-            iconSize: 18,
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.delete_outline),
+            color: Colors.orange[500],
+            iconSize: 26,
             onPressed: () {
               // print('Clicked on delete icon');
-              onDeleteItem(todo.id);
+              // onDeleteItem(todo.id);
+              _showDeleteConfirmationDialog(context, todo.id);
             },
           ),
         ),

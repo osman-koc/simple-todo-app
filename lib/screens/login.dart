@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/constants/app_lang.dart';
+import 'package:simpletodo/constants/colors.dart';
 import 'package:simpletodo/lang/app_localizations.dart';
 import 'package:simpletodo/screens/home.dart';
 import 'package:simpletodo/screens/register.dart';
@@ -20,7 +21,7 @@ class LoginPageState extends State<LoginPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: tdBGColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -155,7 +156,7 @@ class LoginPageState extends State<LoginPage> {
             hintText:
                 AppLocalizations.of(context).translate(key: AppLang.email),
             hintStyle: const TextStyle(color: Colors.grey),
-            prefixIcon: const Icon(Icons.email, color: Colors.deepOrangeAccent),
+            prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
               borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -192,7 +193,7 @@ class LoginPageState extends State<LoginPage> {
                 AppLocalizations.of(context).translate(key: AppLang.password),
             hintStyle: const TextStyle(color: Colors.grey),
             prefixIcon:
-                const Icon(Icons.password, color: Colors.deepOrangeAccent),
+                const Icon(Icons.password, color: tdDeepOrangeAccent),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
               borderSide: const BorderSide(color: Colors.white, width: 1.0),

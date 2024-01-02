@@ -1,4 +1,5 @@
 class AppLang {
+  static const String appName = "app_name";
   static const String search = "search";
   static const String allTodos = "header_allTodos";
   static const String addNewItem = "add_new_item";
@@ -13,4 +14,8 @@ class AppLang {
   static const String password = "password";
   static const String signupWithAppText = "signup_with_app_text";
   static const String backToLogin = "back_to_login";
+  static const String delete = "delete";
+  static const String areYouSureForDelete = "are_you_sure_for_delete";
+  static const String no = "no";
+  static const String yes = "yes";
 }

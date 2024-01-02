@@ -57,9 +57,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      for (ToDo todoo in _foundToDo.reversed)
+                      for (ToDo item in _foundToDo.reversed)
                         ToDoItem(
-                          todo: todoo,
+                          todo: item,
                           onToDoChanged: _handleToDoChange,
                           onDeleteItem: _deleteToDoItem,
                         ),
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: tdInputBgColor,
                     boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                     _addToDoItem(_todoController.text);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: tdBlue,
+                    backgroundColor: tdDeepOrangeAccent,
                     minimumSize: const Size(60, 60),
                     elevation: 10,
                   ),
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: tdInputBgColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(

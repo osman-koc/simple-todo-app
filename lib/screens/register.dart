@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/constants/app_lang.dart';
+import 'package:simpletodo/constants/colors.dart';
 import 'package:simpletodo/lang/app_localizations.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -167,7 +168,7 @@ class RegisterPageState extends State<RegisterPage> {
             hintText:
                 AppLocalizations.of(context).translate(key: AppLang.email),
             hintStyle: const TextStyle(color: Colors.grey),
-            prefixIcon: const Icon(Icons.email, color: Colors.deepOrangeAccent),
+            prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
               borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -204,7 +205,7 @@ class RegisterPageState extends State<RegisterPage> {
                 AppLocalizations.of(context).translate(key: AppLang.password),
             hintStyle: const TextStyle(color: Colors.grey),
             prefixIcon:
-                const Icon(Icons.password, color: Colors.deepOrangeAccent),
+                const Icon(Icons.password, color: tdDeepOrangeAccent),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
               borderSide: const BorderSide(color: Colors.white, width: 1.0),

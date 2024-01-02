@@ -1,5 +1,5 @@
 {
-    "appName": "ToDo App",
+    "app_name": "Simple ToDo App",
     "header_allTodos": "Yapılacaklar",
     "add_new_item": "Yeni ekle",
     "search": "Ara",
@@ -13,5 +13,9 @@
     "email": "E-posta",
     "password": "Şifre",
     "signup_with_app_text": "Aşağıdaki yöntemlerden biriyle kaydol",
-    "back_to_login": "« Girişe Dön"
+    "back_to_login": "« Girişe Dön",
+    "delete": "Sil",
+    "are_you_sure_for_delete": "Bu öğeyi silmek istediğinizden emin misiniz?",
+    "no": "Hayır",
+    "yes": "Evet"
 }
