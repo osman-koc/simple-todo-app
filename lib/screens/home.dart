@@ -110,12 +110,18 @@ class _HomePageState extends State<HomePage> {
                   bottom: 20,
                   right: 20,
                 ),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppAssets.loginBtn),
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 child: ElevatedButton(
                   onPressed: () {
                     _addToDoItem(_todoController.text);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: tdDeepOrangeAccent,
+                    backgroundColor: tdButtonColor,
                     minimumSize: const Size(60, 60),
                     elevation: 10,
                   ),

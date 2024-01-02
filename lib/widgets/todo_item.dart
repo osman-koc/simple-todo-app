@@ -77,11 +77,9 @@ class ToDoItem extends StatelessWidget {
           width: 35,
           child: IconButton(
             icon: const Icon(Icons.delete_outline),
-            color: Colors.orange[500],
+            color: tdButtonColor,
             iconSize: 26,
             onPressed: () {
-              // print('Clicked on delete icon');
-              // onDeleteItem(todo.id);
               _showDeleteConfirmationDialog(context, todo.id);
             },
           ),

@@ -12,3 +12,4 @@ const Color tdGrey = Color(0xFF717171);
 const Color tdBGColor = Colors.white; //Color(0xFFEEEFF5);
 
 const Color tdInputBgColor = Color(0xFFEEEFF5);
+const Color tdButtonColor = Color.fromARGB(255, 253, 112, 73);
