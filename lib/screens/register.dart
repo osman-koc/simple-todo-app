@@ -49,8 +49,8 @@ class RegisterPageState extends State<RegisterPage> {
       text: TextSpan(
         text: AppLocalizations.of(context).translate(key: AppLang.backToLogin),
         style: const TextStyle(
-          color: Colors.blue,
-          fontSize: 18,
+          color: Colors.black,
+          fontSize: 16,
         ),
         recognizer: TapGestureRecognizer()
           ..onTap = () {
@@ -204,8 +204,7 @@ class RegisterPageState extends State<RegisterPage> {
             hintText:
                 AppLocalizations.of(context).translate(key: AppLang.password),
             hintStyle: const TextStyle(color: Colors.grey),
-            prefixIcon:
-                const Icon(Icons.password, color: tdDeepOrangeAccent),
+            prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
               borderSide: const BorderSide(color: Colors.white, width: 1.0),
