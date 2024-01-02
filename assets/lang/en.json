@@ -17,5 +17,9 @@
     "delete": "Delete",
     "are_you_sure_for_delete": "Are you sure you want to delete this item?",
     "no": "No",
-    "yes": "Yes"
+    "yes": "Yes",
+    "email_password_wrong": "Email or password is incorrect!",
+    "invalid_email": "Invalid e-mail!",
+    "invalid_password": "Invalid password! (Min 6 characters)",
+    "user_not_saved": "Registration failed. Check the information and try again."
 }

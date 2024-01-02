@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_lang.dart';
-import 'package:simpletodo/lang/app_localizations.dart';
+import 'package:simpletodo/util/localization.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
 
 class ToDoItem extends StatelessWidget {
   final ToDo todo;
-  final onToDoChanged;
-  final onDeleteItem;
+  final dynamic onToDoChanged;
+  final dynamic onDeleteItem;
 
   const ToDoItem({
     Key? key,

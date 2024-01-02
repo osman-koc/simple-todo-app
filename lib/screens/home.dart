@@ -1,6 +1,6 @@
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_lang.dart';
-import 'package:simpletodo/lang/app_localizations.dart';
+import 'package:simpletodo/util/localization.dart';
 import 'package:flutter/material.dart';
 
 import '../model/todo.dart';

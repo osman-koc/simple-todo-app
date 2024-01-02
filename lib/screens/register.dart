@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/constants/app_lang.dart';
 import 'package:simpletodo/constants/colors.dart';
-import 'package:simpletodo/lang/app_localizations.dart';
+import 'package:simpletodo/screens/home.dart';
+import 'package:simpletodo/util/localization.dart';
+import 'package:simpletodo/util/toaster.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -14,6 +18,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class RegisterPageState extends State<RegisterPage> {
+  String? _userMail, _userPassword;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -32,7 +38,7 @@ class RegisterPageState extends State<RegisterPage> {
             headerContainer(screenWidth, screenHeight),
             inputsContainer(screenWidth, context),
             const SizedBox(height: 50),
-            loginBtnContainer(screenWidth, screenHeight, context),
+            registerBtnContainer(screenWidth, screenHeight, context),
             SizedBox(height: screenHeight * 0.07),
             signupWithAppRichText(context),
             loginWithAppWrap(socialImages),
@@ -92,25 +98,50 @@ class RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Container loginBtnContainer(
+  Widget registerBtnContainer(
       double screenWidth, double screenHeight, BuildContext context) {
-    return Container(
-      width: screenWidth * 0.5,
-      height: screenHeight * 0.08,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        image: const DecorationImage(
-          image: AssetImage(AppAssets.loginBtn),
-          fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        if (_userMail == null || _userMail!.length <= 5) {
+          ConstToast.error(AppLocalizations.of(context)
+              .translate(key: AppLang.invalidEmail));
+        } else if (_userPassword == null || _userPassword!.length <= 6) {
+          ConstToast.error(AppLocalizations.of(context)
+              .translate(key: AppLang.invalidPassword));
+        } else {
+          _signUpUser().then((user) {
+            if (user != null) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            }
+          }).catchError((e) {
+            if (kDebugMode) {
+              print(e);
+            }
+          });
+        }
+      },
+      child: Container(
+        width: screenWidth * 0.5,
+        height: screenHeight * 0.08,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          image: const DecorationImage(
+            image: AssetImage(AppAssets.loginBtn),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Center(
-        child: Text(
-          AppLocalizations.of(context).translate(key: AppLang.signupButtonText),
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+        child: Center(
+          child: Text(
+            AppLocalizations.of(context)
+                .translate(key: AppLang.signupButtonText),
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -165,21 +196,22 @@ class RegisterPageState extends State<RegisterPage> {
       ),
       child: TextField(
         decoration: InputDecoration(
-            hintText:
-                AppLocalizations.of(context).translate(key: AppLang.email),
-            hintStyle: const TextStyle(color: Colors.grey),
-            prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            )),
+          hintText: AppLocalizations.of(context).translate(key: AppLang.email),
+          hintStyle: const TextStyle(color: Colors.grey),
+          prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        onChanged: (value) => _userMail = value,
       ),
     );
   }
@@ -201,21 +233,23 @@ class RegisterPageState extends State<RegisterPage> {
       child: TextField(
         obscureText: true,
         decoration: InputDecoration(
-            hintText:
-                AppLocalizations.of(context).translate(key: AppLang.password),
-            hintStyle: const TextStyle(color: Colors.grey),
-            prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            )),
+          hintText:
+              AppLocalizations.of(context).translate(key: AppLang.password),
+          hintStyle: const TextStyle(color: Colors.grey),
+          prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        onChanged: (value) => _userPassword = value,
       ),
     );
   }
@@ -261,5 +295,21 @@ class RegisterPageState extends State<RegisterPage> {
         ],
       ),
     );
+  }
+
+  Future<User?> _signUpUser() async => _handleSignIn().catchError((e) {
+        ConstToast.error(
+            AppLocalizations.of(context).translate(key: AppLang.userNotSaved));
+        return null;
+      });
+
+  Future<User?> _handleSignIn() async {
+    var email = _userMail!.trim();
+    var password = _userPassword!;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = (await auth.createUserWithEmailAndPassword(
+            email: email, password: password))
+        .user;
+    return user;
   }
 }

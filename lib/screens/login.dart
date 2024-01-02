@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/constants/app_lang.dart';
 import 'package:simpletodo/constants/colors.dart';
-import 'package:simpletodo/lang/app_localizations.dart';
+import 'package:simpletodo/util/localization.dart';
 import 'package:simpletodo/screens/home.dart';
 import 'package:simpletodo/screens/register.dart';
+import 'package:simpletodo/util/toaster.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +19,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  String? _userMail, _userPassword;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -71,10 +76,26 @@ class LoginPageState extends State<LoginPage> {
       double screenWidth, double screenHeight, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
+        if (_userMail == null || _userMail!.length <= 5) {
+          ConstToast.error(AppLocalizations.of(context)
+              .translate(key: AppLang.invalidEmail));
+        } else if (_userPassword == null || _userPassword!.length <= 6) {
+          ConstToast.error(AppLocalizations.of(context)
+              .translate(key: AppLang.invalidPassword));
+        } else {
+          _loginUser().then((user) {
+            if (user != null) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            }
+          }).catchError((e) {
+            if (kDebugMode) {
+              print(e);
+            }
+          });
+        }
       },
       child: Container(
         width: screenWidth * 0.5,
@@ -153,21 +174,22 @@ class LoginPageState extends State<LoginPage> {
       ),
       child: TextField(
         decoration: InputDecoration(
-            hintText:
-                AppLocalizations.of(context).translate(key: AppLang.email),
-            hintStyle: const TextStyle(color: Colors.grey),
-            prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            )),
+          hintText: AppLocalizations.of(context).translate(key: AppLang.email),
+          hintStyle: const TextStyle(color: Colors.grey),
+          prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        onChanged: (value) => _userMail = value,
       ),
     );
   }
@@ -189,22 +211,23 @@ class LoginPageState extends State<LoginPage> {
       child: TextField(
         obscureText: true,
         decoration: InputDecoration(
-            hintText:
-                AppLocalizations.of(context).translate(key: AppLang.password),
-            hintStyle: const TextStyle(color: Colors.grey),
-            prefixIcon:
-                const Icon(Icons.password, color: tdDeepOrangeAccent),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: const BorderSide(color: Colors.white, width: 1.0),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            )),
+          hintText:
+              AppLocalizations.of(context).translate(key: AppLang.password),
+          hintStyle: const TextStyle(color: Colors.grey),
+          prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        onChanged: (value) => _userPassword = value,
       ),
     );
   }
@@ -240,5 +263,21 @@ class LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<User?> _loginUser() async => _handleSignIn().catchError((e) {
+        ConstToast.error(AppLocalizations.of(context)
+            .translate(key: AppLang.emailOrPasswordWrong));
+        return null;
+      });
+
+  Future<User?> _handleSignIn() async {
+    var email = _userMail!.trim();
+    var password = _userPassword!;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = (await auth.signInWithEmailAndPassword(
+            email: email, password: password))
+        .user;
+    return user;
   }
 }
