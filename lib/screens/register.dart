@@ -10,14 +10,14 @@ import 'package:simpletodo/screens/home.dart';
 import 'package:simpletodo/util/localization.dart';
 import 'package:simpletodo/util/toaster.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  RegisterPageState createState() => RegisterPageState();
+  RegisterScreenState createState() => RegisterScreenState();
 }
 
-class RegisterPageState extends State<RegisterPage> {
+class RegisterScreenState extends State<RegisterScreen> {
   String? _userMail, _userPassword;
 
   @override
@@ -113,7 +113,7 @@ class RegisterPageState extends State<RegisterPage> {
             if (user != null) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
             }
           }).catchError((e) {

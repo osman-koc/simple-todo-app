@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return checkUserAlreadyLogin() ? const HomePage() : const LoginPage();
+          return checkUserAlreadyLogin() ? const HomeScreen() : const LoginPage();
         }
 
         return const LoadingScreen();

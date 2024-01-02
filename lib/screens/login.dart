@@ -63,7 +63,7 @@ class LoginPageState extends State<LoginPage> {
               ..onTap = () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                  MaterialPageRoute(builder: (context) => const RegisterScreen()),
                 );
               },
           ),
@@ -87,7 +87,7 @@ class LoginPageState extends State<LoginPage> {
             if (user != null) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
             }
           }).catchError((e) {
