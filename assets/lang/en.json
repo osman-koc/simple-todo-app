@@ -21,5 +21,6 @@
     "email_password_wrong": "Email or password is incorrect!",
     "invalid_email": "Invalid e-mail!",
     "invalid_password": "Invalid password! (Min 6 characters)",
-    "user_not_saved": "Registration failed. Check the information and try again."
+    "user_not_saved": "Registration failed. Check the information and try again.",
+    "error_save": "Server error: Registration failed."
 }

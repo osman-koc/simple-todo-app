@@ -22,4 +22,5 @@ class AppLang {
   static const String invalidEmail = 'invalid_email';
   static const String invalidPassword = 'invalid_password';
   static const String userNotSaved = 'user_not_saved';
+  static const String errorSave = "error_save";
 }

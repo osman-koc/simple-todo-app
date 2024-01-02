@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simpletodo/constants/app_assets.dart';
+import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/constants/app_lang.dart';
 import 'package:simpletodo/util/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:simpletodo/util/toaster.dart';
 
 import '../model/todo.dart';
 import '../constants/colors.dart';
@@ -15,14 +19,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final todosList = ToDo.todoList();
+  List<ToDo> _todosList = [];
   List<ToDo> _foundToDo = [];
+
   final _todoController = TextEditingController();
+  late User _user;
+  late CollectionReference _userTodos;
 
   @override
   void initState() {
-    _foundToDo = todosList;
     super.initState();
+    _user = FirebaseAuth.instance.currentUser!;
+    _userTodos = FirebaseFirestore.instance
+        .collection('todos')
+        .doc(_user.uid)
+        .collection('user_todos');
   }
 
   @override
@@ -41,30 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 searchBox(context),
                 Expanded(
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 50,
-                          bottom: 20,
-                        ),
-                        child: Text(
-                          AppLocalizations.of(context)
-                              .translate(key: AppLang.allTodos),
-                          style: const TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      for (ToDo item in _foundToDo.reversed)
-                        ToDoItem(
-                          todo: item,
-                          onToDoChanged: _handleToDoChange,
-                          onDeleteItem: _deleteToDoItem,
-                        ),
-                    ],
-                  ),
+                  child: todoListWidget(context),
                 )
               ],
             ),
@@ -140,6 +128,49 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget todoListWidget(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _userTodos.snapshots(),
+      builder: ((context, snapshot) {
+        if (snapshot.hasError) {
+          return ListView();
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+
+        _foundToDo = _todosList = snapshot.data!.docs
+            .map((e) => ToDo.fromMap(e.id, e.data() as Map<String, dynamic>))
+            .toList();
+
+        return ListView(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: 50,
+                bottom: 20,
+              ),
+              child: Text(
+                AppLocalizations.of(context).translate(key: AppLang.allTodos),
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: AppFontStyles.freestyleScript,
+                ),
+              ),
+            ),
+            for (ToDo item in _foundToDo)
+              ToDoItem(
+                todo: item,
+                onToDoChanged: _handleToDoChange,
+                onDeleteItem: _deleteToDoItem,
+              ),
+          ],
+        );
+      }),
+    );
+  }
+
   Container searchBox(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -168,34 +199,28 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _handleToDoChange(ToDo todo) {
-    setState(() {
-      todo.isDone = !todo.isDone;
-    });
+  void _handleToDoChange(ToDo todo) async {
+    await _userTodos.doc(todo.id).update({'isDone': !todo.isDone});
   }
 
-  void _deleteToDoItem(String id) {
-    setState(() {
-      todosList.removeWhere((item) => item.id == id);
-    });
+  void _deleteToDoItem(String id) async {
+    await _userTodos.doc(id).delete();
   }
 
-  void _addToDoItem(String toDo) {
-    setState(() {
-      todosList.add(ToDo(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        todoText: toDo,
-      ));
-    });
-    _todoController.clear();
+  void _addToDoItem(String toDo) async {
+    await _userTodos
+        .add({'todoText': toDo, 'isDone': false})
+        .then((value) => _todoController.clear())
+        .catchError((error) => ConstToast.error(
+            AppLocalizations.of(context).translate(key: AppLang.errorSave)));
   }
 
   void _runFilter(String enteredKeyword) {
     List<ToDo> results = [];
     if (enteredKeyword.isEmpty) {
-      results = todosList;
+      results = _todosList;
     } else {
-      results = todosList
+      results = _todosList
           .where((item) => item.todoText!
               .toLowerCase()
               .contains(enteredKeyword.toLowerCase()))
@@ -211,21 +236,24 @@ class _HomeScreenState extends State<HomeScreen> {
     return AppBar(
       backgroundColor: tdBGColor,
       elevation: 0,
-      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const Icon(
-          Icons.menu,
-          color: tdBlack,
-          size: 30,
-        ),
-        SizedBox(
-          height: 40,
-          width: 40,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset(AppAssets.defaultUserAvatar),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Icon(
+            Icons.menu,
+            color: tdBlack,
+            size: 30,
           ),
-        ),
-      ]),
+          SizedBox(
+            height: 40,
+            width: 40,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(AppAssets.defaultUserAvatar),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
