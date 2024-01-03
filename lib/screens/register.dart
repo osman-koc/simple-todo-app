@@ -6,7 +6,7 @@ import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:simpletodo/constants/colors.dart';
-import 'package:simpletodo/screens/home.dart';
+import 'package:simpletodo/screens/splash.dart';
 import 'package:simpletodo/util/toaster.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -109,7 +109,7 @@ class RegisterScreenState extends State<RegisterScreen> {
             if (user != null) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => const SplashScreen()),
               );
             }
           }).catchError((e) {
