@@ -281,12 +281,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ];
         },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: const Icon(
-            Icons.menu,
-            color: tdBlack,
-            size: 30,
+        child: Container(
+          padding: const EdgeInsets.only(left: 5),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: const Icon(
+              Icons.menu,
+              color: tdBlack,
+              size: 30,
+            ),
           ),
         ),
       ),
