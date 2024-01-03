@@ -8,6 +8,7 @@ const Color tdDeepOrangeAccent = Colors.deepOrangeAccent;
 
 const Color tdBlack = Color(0xFF3A3A3A);
 const Color tdGrey = Color(0xFF717171);
+const Color tdGreen = Colors.green;
 
 const Color tdBGColor = Colors.white; //Color(0xFFEEEFF5);
 

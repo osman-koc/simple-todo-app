@@ -15,33 +15,6 @@ class ToDoItem extends StatelessWidget {
     required this.onDeleteItem,
   }) : super(key: key);
 
-  void _showDeleteConfirmationDialog(BuildContext context, String? todoId) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(context.translate.delete),
-          content: Text(context.translate.areYouSureForDelete),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(context.translate.no),
-            ),
-            TextButton(
-              onPressed: () {
-                onDeleteItem(todoId);
-                Navigator.of(context).pop();
-              },
-              child: Text(context.translate.yes),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,7 +31,7 @@ class ToDoItem extends StatelessWidget {
         tileColor: tdInputBgColor,
         leading: Icon(
           todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
-          color: tdGrey,
+          color: todo.isDone ? tdGreen : tdGrey,
         ),
         title: Text(
           todo.todoText!,
@@ -83,6 +56,33 @@ class ToDoItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context, String? todoId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(context.translate.delete),
+          content: Text(context.translate.areYouSureForDelete),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(context.translate.no),
+            ),
+            TextButton(
+              onPressed: () {
+                onDeleteItem(todoId);
+                Navigator.of(context).pop();
+              },
+              child: Text(context.translate.yes),
+            ),
+          ],
+        );
+      },
     );
   }
 }
