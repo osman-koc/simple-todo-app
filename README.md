@@ -1,6 +1,6 @@
 # Simple ToDo App
 
-<img src="assets/icons/app_icon.png.png" />
+<img src="assets/icons/app_icon.png" />
 
 Welcome to the Simple ToDo App, a quick and easy-to-use task management application built with Flutter. This app allows you to swiftly add, delete, and update tasks, providing a seamless search functionality to find any existing to-do item within the application.
 
