@@ -8,6 +8,10 @@ class AppLangTranslations {
   AppLangTranslations(this._appLocalizations);
 
   String get appName => _appLocalizations.translate(key: 'app_name');
+  String get appVersion => _appLocalizations.translate(key: 'app_version');
+  String get appDeveloper => _appLocalizations.translate(key: 'app_developer');
+  String get appWebsite => _appLocalizations.translate(key: 'app_website');
+  String get appMail => _appLocalizations.translate(key: 'app_email');
   String get loading => _appLocalizations.translate(key: 'loading');
   String get osmkocCom => _appLocalizations.translate(key: 'osmkoccom');
   String get search => _appLocalizations.translate(key: 'search');
@@ -40,7 +44,17 @@ class AppLangTranslations {
   String get invalidPassword =>
       _appLocalizations.translate(key: 'invalid_password');
   String get userNotSaved => _appLocalizations.translate(key: 'user_not_saved');
-  String get errorSave => _appLocalizations.translate(key: "error_save");
+  String get errorSave => _appLocalizations.translate(key: 'error_save');
+  String get myAccount => _appLocalizations.translate(key: 'my_account');
+  String get logout => _appLocalizations.translate(key: 'logout');
+  String get close => _appLocalizations.translate(key: 'close');
+  String get home => _appLocalizations.translate(key: 'home');
+  String get menu => _appLocalizations.translate(key: 'menu');
+  String get about => _appLocalizations.translate(key: 'about');
+  String get errorLogout => _appLocalizations.translate(key: 'error_logout_message');
+  String get aboutAppTitle => _appLocalizations.translate(key: 'about_app_title');
+  String get developedBy => _appLocalizations.translate(key: 'developedby');
+  String get contact => _appLocalizations.translate(key: 'contact');
 }
 
 extension AppLangContextExtension on BuildContext {

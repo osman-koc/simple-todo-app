@@ -1,5 +1,9 @@
 {
-    "app_name": "Simple ToDo App",
+    "app_name": "Simple ToDo",
+    "app_version": "1.0.0",
+    "app_developer": "Osman Koç",
+    "app_website": "www.osmkoc.com",
+    "app_email": "info@osmkoc.com",
     "loading": "Yükleniyor...",
     "osmkoccom": "osmkoc.com",
     "header_allTodos": "Yapılacaklar",
@@ -24,5 +28,15 @@
     "invalid_email": "Geçersiz e-posta adresi!",
     "invalid_password": "Geçersiz şifre! (Min 6 karakter)",
     "user_not_saved": "Kayıt yapılamadı. Bilgileri kontrol edip tekrar deneyin.",
-    "error_save": "Sunucu hatası: Kayıt yapılamadı."
+    "error_save": "Sunucu hatası: Kayıt yapılamadı.",
+    "my_account": "Hesabım",
+    "logout": "Çıkış Yap",
+    "close": "Kapat",
+    "menu": "Menü",
+    "home": "Anasayfa",
+    "about": "Hakkında",
+    "error_logout_message": "Sunucu hatası: Çıkış yapılamadı.",
+    "about_app_title": "Uygulama Hakkında",
+    "developedby": "Geliştiren",
+    "contact": "İletişim"
 }

@@ -1,14 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
-import 'package:flutter/material.dart';
+import 'package:simpletodo/popup/about.dart';
+import 'package:simpletodo/screens/splash.dart';
 import 'package:simpletodo/util/toaster.dart';
-
-import '../model/todo.dart';
-import '../constants/colors.dart';
-import '../widgets/todo_item.dart';
+import 'package:simpletodo/model/todo.dart';
+import 'package:simpletodo/constants/colors.dart';
+import 'package:simpletodo/widgets/todo_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -234,21 +236,102 @@ class _HomeScreenState extends State<HomeScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(
+          menuWidget(),
+          profileWidget(),
+        ],
+      ),
+    );
+  }
+
+  SizedBox menuWidget() {
+    return SizedBox(
+      height: 40,
+      width: 40,
+      child: PopupMenuButton<String>(
+        offset: const Offset(0, 40),
+        onSelected: (value) async {
+          if (value == context.translate.about) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const AboutScreenPopup();
+              },
+            );
+          }
+        },
+        itemBuilder: (BuildContext context) {
+          return [
+            PopupMenuItem<String>(
+              value: context.translate.home,
+              child: ListTile(
+                title: Text(context.translate.home),
+                onTap: () {
+                  Navigator.of(context).pop(context.translate.home);
+                },
+              ),
+            ),
+            PopupMenuItem<String>(
+              value: context.translate.about,
+              child: ListTile(
+                title: Text(context.translate.about),
+                onTap: () {
+                  Navigator.of(context).pop(context.translate.about);
+                },
+              ),
+            ),
+          ];
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: const Icon(
             Icons.menu,
             color: tdBlack,
             size: 30,
           ),
-          SizedBox(
-            height: 40,
-            width: 40,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(AppAssets.defaultUserAvatar),
-            ),
-          ),
-        ],
+        ),
       ),
     );
+  }
+
+  SizedBox profileWidget() {
+    return SizedBox(
+      height: 40,
+      width: 40,
+      child: PopupMenuButton<String>(
+        offset: const Offset(0, 40),
+        onSelected: (value) async {
+          if (value == context.translate.logout) {
+            await _logout();
+          }
+        },
+        itemBuilder: (BuildContext context) {
+          return [
+            PopupMenuItem<String>(
+              value: context.translate.logout,
+              child: ListTile(
+                title: Text(context.translate.logout),
+                onTap: () {
+                  Navigator.of(context).pop(context.translate.logout);
+                },
+              ),
+            ),
+          ];
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.asset(AppAssets.defaultUserAvatar),
+        ),
+      ),
+    );
+  }
+
+  _logout() async {
+    await FirebaseAuth.instance
+        .signOut()
+        .then((value) => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const SplashScreen()),
+            ))
+        .catchError((error) => ConstToast.error(context.translate.errorLogout));
   }
 }

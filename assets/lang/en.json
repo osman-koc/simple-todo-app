@@ -1,5 +1,9 @@
 {
-    "app_name": "Simple ToDo App",
+    "app_name": "Simple ToDo",
+    "app_version": "1.0.0",
+    "app_developer": "Osman Koç",
+    "app_website": "www.osmkoc.com",
+    "app_email": "info@osmkoc.com",
     "loading": "Loading...",
     "osmkoccom": "osmkoc.com",
     "header_allTodos": "All ToDos",
@@ -24,5 +28,15 @@
     "invalid_email": "Invalid e-mail!",
     "invalid_password": "Invalid password! (Min 6 characters)",
     "user_not_saved": "Registration failed. Check the information and try again.",
-    "error_save": "Server error: Registration failed."
+    "error_save": "Server error: Registration failed.",
+    "my_account": "My Account",
+    "logout": "Logout",
+    "close": "Close",
+    "menu": "Menu",
+    "home": "Home",
+    "about": "About",
+    "error_logout_message": "Server error: Failed to log out.",
+    "about_app_title": "About App",
+    "developedby": "Developed by",
+    "contact": "Contact"
 }
