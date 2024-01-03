@@ -18,10 +18,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<ToDo> _todosList = [];
-  List<ToDo> _foundToDo = [];
-
   final _todoController = TextEditingController();
+  final _searchController = TextEditingController();
+
   late User _user;
   late CollectionReference _userTodos;
 
@@ -137,9 +136,16 @@ class _HomeScreenState extends State<HomeScreen> {
           return const CircularProgressIndicator();
         }
 
-        _foundToDo = _todosList = snapshot.data!.docs
-            .map((e) => ToDo.fromMap(e.id, e.data() as Map<String, dynamic>))
-            .toList();
+        List<ToDo> todosList = snapshot.data!.docs
+          .map((e) => ToDo.fromMap(e.id, e.data() as Map<String, dynamic>))
+          .toList();
+
+        List<ToDo> foundToDo = todosList
+          .where((item) =>
+              item.todoText!
+                  .toLowerCase()
+                  .contains(_searchController.text.toLowerCase()))
+          .toList();
 
         return ListView(
           children: [
@@ -157,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            for (ToDo item in _foundToDo)
+            for (ToDo item in foundToDo)
               ToDoItem(
                 todo: item,
                 onToDoChanged: _handleToDoChange,
@@ -177,7 +183,12 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
-        onChanged: (value) => _runFilter(value),
+        onChanged: (value) {
+          setState(() {
+            _searchController.text = value;
+          });
+        },
+        controller: _searchController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(0),
           prefixIcon: const Icon(
@@ -210,23 +221,6 @@ class _HomeScreenState extends State<HomeScreen> {
         .add({'todoText': toDo, 'isDone': false})
         .then((value) => _todoController.clear())
         .catchError((error) => ConstToast.error(context.translate.errorSave));
-  }
-
-  void _runFilter(String enteredKeyword) {
-    List<ToDo> results = [];
-    if (enteredKeyword.isEmpty) {
-      results = _todosList;
-    } else {
-      results = _todosList
-          .where((item) => item.todoText!
-              .toLowerCase()
-              .contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-
-    setState(() {
-      _foundToDo = results;
-    });
   }
 
   AppBar _buildAppBar() {
