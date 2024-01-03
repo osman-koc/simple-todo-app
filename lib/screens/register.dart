@@ -24,11 +24,11 @@ class RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    List socialImages = [
-      AppAssets.googleLogo,
-      AppAssets.twitterLogo,
-      AppAssets.facebookLogo
-    ];
+    // List socialImages = [
+    //   AppAssets.googleLogo,
+    //   AppAssets.twitterLogo,
+    //   AppAssets.facebookLogo
+    // ];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -40,9 +40,9 @@ class RegisterScreenState extends State<RegisterScreen> {
             const SizedBox(height: 50),
             registerBtnContainer(screenWidth, screenHeight, context),
             SizedBox(height: screenHeight * 0.07),
-            signupWithAppRichText(context),
-            loginWithAppWrap(socialImages),
-            SizedBox(height: screenHeight * 0.03),
+            //signupWithAppRichText(context),
+            //loginWithAppWrap(socialImages),
+            //SizedBox(height: screenHeight * 0.03),
             backToLoginText(context),
           ],
         ),
@@ -66,37 +66,37 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Wrap loginWithAppWrap(List<dynamic> socialImages) {
-    return Wrap(
-      children: List<Widget>.generate(
-        3,
-        (index) => Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.grey[200],
-            child: CircleAvatar(
-              radius: 26,
-              backgroundImage: AssetImage(socialImages[index]),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Wrap loginWithAppWrap(List<dynamic> socialImages) {
+  //   return Wrap(
+  //     children: List<Widget>.generate(
+  //       3,
+  //       (index) => Padding(
+  //         padding: const EdgeInsets.all(10.0),
+  //         child: CircleAvatar(
+  //           radius: 30,
+  //           backgroundColor: Colors.grey[200],
+  //           child: CircleAvatar(
+  //             radius: 26,
+  //             backgroundImage: AssetImage(socialImages[index]),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  RichText signupWithAppRichText(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        text: AppLocalizations.of(context)
-            .translate(key: AppLang.signupWithAppText),
-        style: TextStyle(
-          color: Colors.grey[500],
-          fontSize: 16,
-        ),
-      ),
-    );
-  }
+  // RichText signupWithAppRichText(BuildContext context) {
+  //   return RichText(
+  //     text: TextSpan(
+  //       text: AppLocalizations.of(context)
+  //           .translate(key: AppLang.signupWithAppText),
+  //       style: TextStyle(
+  //         color: Colors.grey[500],
+  //         fontSize: 16,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget registerBtnContainer(
       double screenWidth, double screenHeight, BuildContext context) {
