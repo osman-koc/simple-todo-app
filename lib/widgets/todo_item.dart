@@ -4,7 +4,7 @@ import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:simpletodo/model/todo.dart';
 
 class ToDoItem extends StatelessWidget {
-  final ToDo todo;
+  final ToDoModel todo;
   final dynamic onToDoChanged;
   final dynamic onDeleteItem;
 

@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget todoListWidget(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _userTodos.snapshots(),
+      stream: _userTodos.orderBy('creationDate', descending: true).snapshots(),
       builder: ((context, snapshot) {
         if (snapshot.hasError) {
           return ListView();
@@ -136,16 +136,16 @@ class _HomeScreenState extends State<HomeScreen> {
           return const CircularProgressIndicator();
         }
 
-        List<ToDo> todosList = snapshot.data!.docs
-          .map((e) => ToDo.fromMap(e.id, e.data() as Map<String, dynamic>))
-          .toList();
+        List<ToDoModel> todosList = snapshot.data!.docs
+            .map((e) =>
+                ToDoModel.fromMap(e.id, e.data() as Map<String, dynamic>))
+            .toList();
 
-        List<ToDo> foundToDo = todosList
-          .where((item) =>
-              item.todoText!
-                  .toLowerCase()
-                  .contains(_searchController.text.toLowerCase()))
-          .toList();
+        List<ToDoModel> foundToDo = todosList
+            .where((item) => item.todoText!
+                .toLowerCase()
+                .contains(_searchController.text.toLowerCase()))
+            .toList();
 
         return ListView(
           children: [
@@ -157,13 +157,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 context.translate.allTodos,
                 style: const TextStyle(
-                  fontSize: 30,
+                  fontSize: 40,
                   fontWeight: FontWeight.w500,
                   fontFamily: AppFontStyles.freestyleScript,
                 ),
               ),
             ),
-            for (ToDo item in foundToDo)
+            for (ToDoModel item in foundToDo)
               ToDoItem(
                 todo: item,
                 onToDoChanged: _handleToDoChange,
@@ -208,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _handleToDoChange(ToDo todo) async {
+  void _handleToDoChange(ToDoModel todo) async {
     await _userTodos.doc(todo.id).update({'isDone': !todo.isDone});
   }
 
@@ -216,9 +216,13 @@ class _HomeScreenState extends State<HomeScreen> {
     await _userTodos.doc(id).delete();
   }
 
-  void _addToDoItem(String toDo) async {
+  void _addToDoItem(String toDoText) async {
     await _userTodos
-        .add({'todoText': toDo, 'isDone': false})
+        .add({
+          'todoText': toDoText,
+          'isDone': false,
+          'creationDate': FieldValue.serverTimestamp()
+        })
         .then((value) => _todoController.clear())
         .catchError((error) => ConstToast.error(context.translate.errorSave));
   }
