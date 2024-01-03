@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
-import 'package:simpletodo/constants/app_lang.dart';
-import 'package:simpletodo/util/localization.dart';
+import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:flutter/material.dart';
 import 'package:simpletodo/util/toaster.dart';
 
@@ -86,8 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: TextField(
                     controller: _todoController,
                     decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)
-                          .translate(key: AppLang.addNewItem),
+                      hintText: context.translate.addNewItem,
                       border: InputBorder.none,
                     ),
                   ),
@@ -151,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottom: 20,
               ),
               child: Text(
-                AppLocalizations.of(context).translate(key: AppLang.allTodos),
+                context.translate.allTodos,
                 style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w500,
@@ -192,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
             minWidth: 25,
           ),
           border: InputBorder.none,
-          hintText: AppLocalizations.of(context).translate(key: AppLang.search),
+          hintText: context.translate.search,
           hintStyle: const TextStyle(color: tdGrey),
         ),
       ),
@@ -211,8 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await _userTodos
         .add({'todoText': toDo, 'isDone': false})
         .then((value) => _todoController.clear())
-        .catchError((error) => ConstToast.error(
-            AppLocalizations.of(context).translate(key: AppLang.errorSave)));
+        .catchError((error) => ConstToast.error(context.translate.errorSave));
   }
 
   void _runFilter(String enteredKeyword) {

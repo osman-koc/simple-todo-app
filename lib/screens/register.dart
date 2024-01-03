@@ -4,10 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
-import 'package:simpletodo/constants/app_lang.dart';
+import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:simpletodo/constants/colors.dart';
 import 'package:simpletodo/screens/home.dart';
-import 'package:simpletodo/util/localization.dart';
 import 'package:simpletodo/util/toaster.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -53,7 +52,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   RichText backToLoginText(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: AppLocalizations.of(context).translate(key: AppLang.backToLogin),
+        text: context.translate.backToLogin,
         style: const TextStyle(
           color: Colors.black,
           fontSize: 16,
@@ -88,8 +87,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   // RichText signupWithAppRichText(BuildContext context) {
   //   return RichText(
   //     text: TextSpan(
-  //       text: AppLocalizations.of(context)
-  //           .translate(key: AppLang.signupWithAppText),
+  //       text: context.translate.signupWithAppText,
   //       style: TextStyle(
   //         color: Colors.grey[500],
   //         fontSize: 16,
@@ -103,11 +101,9 @@ class RegisterScreenState extends State<RegisterScreen> {
     return GestureDetector(
       onTap: () {
         if (_userMail == null || _userMail!.length <= 5) {
-          ConstToast.error(AppLocalizations.of(context)
-              .translate(key: AppLang.invalidEmail));
+          ConstToast.error(context.translate.invalidEmail);
         } else if (_userPassword == null || _userPassword!.length <= 6) {
-          ConstToast.error(AppLocalizations.of(context)
-              .translate(key: AppLang.invalidPassword));
+          ConstToast.error(context.translate.invalidPassword);
         } else {
           _signUpUser().then((user) {
             if (user != null) {
@@ -135,8 +131,7 @@ class RegisterScreenState extends State<RegisterScreen> {
         ),
         child: Center(
           child: Text(
-            AppLocalizations.of(context)
-                .translate(key: AppLang.signupButtonText),
+            context.translate.signupButtonText,
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -169,8 +164,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       children: [
         Expanded(child: Container()),
         Text(
-          AppLocalizations.of(context)
-              .translate(key: AppLang.forgotPasswordText),
+          context.translate.forgotPasswordText,
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey[500],
@@ -196,7 +190,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       ),
       child: TextField(
         decoration: InputDecoration(
-          hintText: AppLocalizations.of(context).translate(key: AppLang.email),
+          hintText: context.translate.email,
           hintStyle: const TextStyle(color: Colors.grey),
           prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
@@ -233,8 +227,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       child: TextField(
         obscureText: true,
         decoration: InputDecoration(
-          hintText:
-              AppLocalizations.of(context).translate(key: AppLang.password),
+          hintText: context.translate.password,
           hintStyle: const TextStyle(color: Colors.grey),
           prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
@@ -256,7 +249,7 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   Text signSubText(BuildContext context) {
     return Text(
-      AppLocalizations.of(context).translate(key: AppLang.siginSubText),
+      context.translate.siginSubText,
       style: TextStyle(
         fontSize: 18,
         color: Colors.grey[500],
@@ -266,7 +259,7 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   Text helloText(BuildContext context) {
     return Text(
-      AppLocalizations.of(context).translate(key: AppLang.hello),
+      context.translate.hello,
       style: const TextStyle(
         fontSize: 54,
         fontFamily: AppFontStyles.freestyleScript,
@@ -298,8 +291,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<User?> _signUpUser() async => _handleSignIn().catchError((e) {
-        ConstToast.error(
-            AppLocalizations.of(context).translate(key: AppLang.userNotSaved));
+        ConstToast.error(context.translate.userNotSaved);
         return null;
       });
 

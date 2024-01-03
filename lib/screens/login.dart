@@ -4,9 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
-import 'package:simpletodo/constants/app_lang.dart';
+import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:simpletodo/constants/colors.dart';
-import 'package:simpletodo/util/localization.dart';
 import 'package:simpletodo/screens/home.dart';
 import 'package:simpletodo/screens/register.dart';
 import 'package:simpletodo/util/toaster.dart';
@@ -45,15 +44,14 @@ class LoginPageState extends State<LoginPage> {
   RichText signupRichText(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text:
-            "${AppLocalizations.of(context).translate(key: AppLang.dontHaveAnAccount)} ",
+        text: "${context.translate.dontHaveAnAccount} ",
         style: TextStyle(
           color: Colors.grey[500],
           fontSize: 18,
         ),
         children: [
           TextSpan(
-            text: AppLocalizations.of(context).translate(key: AppLang.signup),
+            text: context.translate.signup,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -63,7 +61,8 @@ class LoginPageState extends State<LoginPage> {
               ..onTap = () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const RegisterScreen()),
                 );
               },
           ),
@@ -77,11 +76,9 @@ class LoginPageState extends State<LoginPage> {
     return GestureDetector(
       onTap: () {
         if (_userMail == null || _userMail!.length <= 5) {
-          ConstToast.error(AppLocalizations.of(context)
-              .translate(key: AppLang.invalidEmail));
+          ConstToast.error(context.translate.invalidEmail);
         } else if (_userPassword == null || _userPassword!.length <= 6) {
-          ConstToast.error(AppLocalizations.of(context)
-              .translate(key: AppLang.invalidPassword));
+          ConstToast.error(context.translate.invalidPassword);
         } else {
           _loginUser().then((user) {
             if (user != null) {
@@ -109,8 +106,7 @@ class LoginPageState extends State<LoginPage> {
         ),
         child: Center(
           child: Text(
-            AppLocalizations.of(context)
-                .translate(key: AppLang.signinButtonText),
+            context.translate.signinButtonText,
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -147,8 +143,7 @@ class LoginPageState extends State<LoginPage> {
       children: [
         Expanded(child: Container()),
         Text(
-          AppLocalizations.of(context)
-              .translate(key: AppLang.forgotPasswordText),
+          context.translate.forgotPasswordText,
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey[500],
@@ -174,7 +169,7 @@ class LoginPageState extends State<LoginPage> {
       ),
       child: TextField(
         decoration: InputDecoration(
-          hintText: AppLocalizations.of(context).translate(key: AppLang.email),
+          hintText: context.translate.email,
           hintStyle: const TextStyle(color: Colors.grey),
           prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
@@ -211,8 +206,7 @@ class LoginPageState extends State<LoginPage> {
       child: TextField(
         obscureText: true,
         decoration: InputDecoration(
-          hintText:
-              AppLocalizations.of(context).translate(key: AppLang.password),
+          hintText: context.translate.password,
           hintStyle: const TextStyle(color: Colors.grey),
           prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
@@ -234,7 +228,7 @@ class LoginPageState extends State<LoginPage> {
 
   Text signSubText(BuildContext context) {
     return Text(
-      AppLocalizations.of(context).translate(key: AppLang.siginSubText),
+      context.translate.siginSubText,
       style: TextStyle(
         fontSize: 18,
         color: Colors.grey[500],
@@ -244,7 +238,7 @@ class LoginPageState extends State<LoginPage> {
 
   Text helloText(BuildContext context) {
     return Text(
-      AppLocalizations.of(context).translate(key: AppLang.hello),
+      context.translate.hello,
       style: const TextStyle(
         fontSize: 54,
         fontFamily: AppFontStyles.freestyleScript,
@@ -266,8 +260,7 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Future<User?> _loginUser() async => _handleSignIn().catchError((e) {
-        ConstToast.error(AppLocalizations.of(context)
-            .translate(key: AppLang.emailOrPasswordWrong));
+        ConstToast.error(context.translate.emailOrPasswordWrong);
         return null;
       });
 

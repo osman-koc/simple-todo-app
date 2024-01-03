@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simpletodo/constants/app_lang.dart';
-import 'package:simpletodo/util/localization.dart';
-
-import '../model/todo.dart';
-import '../constants/colors.dart';
+import 'package:simpletodo/constants/colors.dart';
+import 'package:simpletodo/extensions/app_lang.dart';
+import 'package:simpletodo/model/todo.dart';
 
 class ToDoItem extends StatelessWidget {
   final ToDo todo;
@@ -22,21 +20,21 @@ class ToDoItem extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(AppLocalizations.of(context).translate(key: AppLang.delete)),
-          content: Text(AppLocalizations.of(context).translate(key: AppLang.areYouSureForDelete)),
+          title: Text(context.translate.delete),
+          content: Text(context.translate.areYouSureForDelete),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(AppLocalizations.of(context).translate(key: AppLang.no)),
+              child: Text(context.translate.no),
             ),
             TextButton(
               onPressed: () {
                 onDeleteItem(todoId);
                 Navigator.of(context).pop();
               },
-              child: Text(AppLocalizations.of(context).translate(key: AppLang.yes)),
+              child: Text(context.translate.yes),
             ),
           ],
         );
