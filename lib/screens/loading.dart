@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_settings.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
 
