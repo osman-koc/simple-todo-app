@@ -8,6 +8,8 @@ class AppLangTranslations {
   AppLangTranslations(this._appLocalizations);
 
   String get appName => _appLocalizations.translate(key: 'app_name');
+  String get loading => _appLocalizations.translate(key: 'loading');
+  String get osmkocCom => _appLocalizations.translate(key: 'osmkoccom');
   String get search => _appLocalizations.translate(key: 'search');
   String get allTodos => _appLocalizations.translate(key: 'header_allTodos');
   String get addNewItem => _appLocalizations.translate(key: 'add_new_item');

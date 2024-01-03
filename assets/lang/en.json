@@ -1,5 +1,7 @@
 {
     "app_name": "Simple ToDo App",
+    "loading": "Loading...",
+    "osmkoccom": "osmkoc.com",
     "header_allTodos": "All ToDos",
     "add_new_item": "Add a new todo item",
     "search": "Search",

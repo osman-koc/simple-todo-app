@@ -1,5 +1,7 @@
 {
     "app_name": "Simple ToDo App",
+    "loading": "Yükleniyor...",
+    "osmkoccom": "osmkoc.com",
     "header_allTodos": "Yapılacaklar",
     "add_new_item": "Yeni ekle",
     "search": "Ara",

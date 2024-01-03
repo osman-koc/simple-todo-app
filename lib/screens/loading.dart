@@ -1,14 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:simpletodo/constants/app_assets.dart';
+import 'package:simpletodo/constants/app_settings.dart';
+import 'package:simpletodo/extensions/app_lang.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoadingWidget(),
+    return MaterialApp(
+      home: const LoadingWidget(),
       debugShowCheckedModeBanner: false,
+      theme: AppSettings.defaultTheme,
+      supportedLocales: AppSettings.supportedLocales,
+      localizationsDelegates: AppSettings.localizationsDelegates,
+      localeResolutionCallback: AppSettings.localeResolutionCallback,
     );
   }
 }
@@ -52,16 +59,28 @@ class LoadingWidgetState extends State<LoadingWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black,
-      child: Center(
-        child: Center(
-          child: CircularProgressIndicator(
-            valueColor: animationController.drive(ColorTween(
-              begin: Colors.blueAccent,
-              end: Colors.red,
-            )),
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Padding(padding: EdgeInsets.only(top: 90.0)),
+            CircularProgressIndicator(
+              value: _progressVal,
+              valueColor: animationController.drive(ColorTween(
+                begin: Colors.deepOrangeAccent,
+                end: Colors.deepOrange,
+              )),
+              backgroundColor: Colors.black,
+              strokeWidth: 1,
+            ),
+            const Padding(padding: EdgeInsets.only(top: 20.0)),
+            Text(
+              context.translate.loading,
+              style: const TextStyle(fontSize: 16.0, color: Colors.deepOrange),
+            ),
+          ],
         ),
       ),
     );
