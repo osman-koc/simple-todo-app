@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
-import 'package:simpletodo/constants/colors.dart';
+import 'package:simpletodo/constants/app_colors.dart';
 import 'package:simpletodo/helpers/user_helper.dart';
 import 'package:simpletodo/screens/splash.dart';
 import 'package:simpletodo/util/toaster.dart';
@@ -31,7 +31,7 @@ class RegisterScreenState extends State<RegisterScreen> {
     // ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors(context).tdBGColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -54,8 +54,8 @@ class RegisterScreenState extends State<RegisterScreen> {
     return RichText(
       text: TextSpan(
         text: context.translate.backToLogin,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: AppColors(context).tdTextColor,
           fontSize: 16,
         ),
         recognizer: TapGestureRecognizer()
@@ -133,10 +133,10 @@ class RegisterScreenState extends State<RegisterScreen> {
         child: Center(
           child: Text(
             context.translate.signupButtonText,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppColors(context).tdTextColor,
             ),
           ),
         ),
@@ -178,7 +178,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   Container emailContainer() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors(context).tdBGColor,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -193,14 +193,17 @@ class RegisterScreenState extends State<RegisterScreen> {
         decoration: InputDecoration(
           hintText: context.translate.email,
           hintStyle: const TextStyle(color: Colors.grey),
-          prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
+          prefixIcon:
+              Icon(Icons.email, color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide:
+                BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide:
+                BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -214,7 +217,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   Container passwordContainer() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors(context).tdBGColor,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -230,14 +233,17 @@ class RegisterScreenState extends State<RegisterScreen> {
         decoration: InputDecoration(
           hintText: context.translate.password,
           hintStyle: const TextStyle(color: Colors.grey),
-          prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
+          prefixIcon: Icon(Icons.password,
+              color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide:
+                BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide:
+                BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -281,10 +287,10 @@ class RegisterScreenState extends State<RegisterScreen> {
       child: Column(
         children: [
           SizedBox(height: screenHeight * 0.16),
-          const CircleAvatar(
+          CircleAvatar(
             radius: 50,
-            backgroundColor: Colors.white70,
-            backgroundImage: AssetImage(AppAssets.profileImg),
+            backgroundColor: AppColors(context).tdTextColor,
+            backgroundImage: const AssetImage(AppAssets.profileImg),
           ),
         ],
       ),

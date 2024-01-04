@@ -9,7 +9,7 @@ import 'package:simpletodo/popup/about.dart';
 import 'package:simpletodo/screens/splash.dart';
 import 'package:simpletodo/util/toaster.dart';
 import 'package:simpletodo/model/todo.dart';
-import 'package:simpletodo/constants/colors.dart';
+import 'package:simpletodo/constants/app_colors.dart';
 import 'package:simpletodo/widgets/todo_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: tdBGColor,
+      backgroundColor: AppColors(context).tdBGColor,
       appBar: _buildAppBar(),
       body: Stack(
         children: [
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: tdInputBgColor,
+                    color: AppColors(context).tdBGColor,
                     boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     _addToDoItem(_todoController.text);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: tdButtonColor,
+                    backgroundColor: AppColors(context).tdButtonColor,
                     minimumSize: const Size(60, 60),
                     elevation: 10,
                   ),
@@ -159,7 +159,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Text(
                 context.translate.allTodos,
-                style: const TextStyle(
+                style: TextStyle(
+                  color: AppColors(context).tdTextColor,
                   fontSize: 40,
                   fontWeight: FontWeight.w500,
                   fontFamily: AppFontStyles.freestyleScript,
@@ -183,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        color: tdInputBgColor,
+        color: AppColors(context).tdInputBgColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
@@ -195,9 +196,9 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _searchController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(0),
-          prefixIcon: const Icon(
+          prefixIcon: Icon(
             Icons.search,
-            color: tdBlack,
+            color: AppColors(context).tdTextColor,
             size: 20,
           ),
           prefixIconConstraints: const BoxConstraints(
@@ -206,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           border: InputBorder.none,
           hintText: context.translate.search,
-          hintStyle: const TextStyle(color: tdGrey),
+          hintStyle: TextStyle(color: AppColors(context).tdGrey),
         ),
       ),
     );
@@ -292,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: tdBGColor,
+      backgroundColor: AppColors(context).tdBGColor,
       elevation: 0,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -346,9 +347,9 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.only(left: 5),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: const Icon(
+            child: Icon(
               Icons.menu,
-              color: tdBlack,
+              color: AppColors(context).tdTextColor,
               size: 30,
             ),
           ),

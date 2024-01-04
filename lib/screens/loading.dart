@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:simpletodo/constants/app_colors.dart';
 import 'package:simpletodo/constants/app_settings.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
 
@@ -11,7 +12,9 @@ class LoadingScreen extends StatelessWidget {
     return MaterialApp(
       home: const LoadingWidget(),
       debugShowCheckedModeBanner: false,
-      theme: AppSettings.defaultTheme,
+      theme: AppSettings.lightTheme,
+      darkTheme: AppSettings.darkTheme,
+      themeMode: ThemeMode.system,
       supportedLocales: AppSettings.supportedLocales,
       localizationsDelegates: AppSettings.localizationsDelegates,
       localeResolutionCallback: AppSettings.localeResolutionCallback,
@@ -59,7 +62,7 @@ class LoadingWidgetState extends State<LoadingWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors(context).tdBGColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

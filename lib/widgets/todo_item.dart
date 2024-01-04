@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simpletodo/constants/colors.dart';
+import 'package:simpletodo/constants/app_colors.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:simpletodo/model/todo.dart';
 
@@ -29,14 +29,16 @@ class ToDoItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        tileColor: tdInputBgColor,
+        tileColor: AppColors(context).tdInputBgColor,
         leading: InkWell(
           onTap: () {
             onCheckItem(todo);
           },
           child: Icon(
             todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
-            color: todo.isDone ? tdGreen : tdGrey,
+            color: todo.isDone
+                ? AppColors(context).tdGreen
+                : AppColors(context).tdGrey,
           ),
         ),
         // leading: Icon(
@@ -47,8 +49,10 @@ class ToDoItem extends StatelessWidget {
           todo.todoText!,
           style: TextStyle(
             fontSize: 16,
-            color: tdBlack,
+            color: AppColors(context).tdTextColor,
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
+            decorationColor: AppColors(context).tdTextColor,
+            decorationStyle: TextDecorationStyle.double,
           ),
         ),
         trailing: Container(
@@ -58,7 +62,7 @@ class ToDoItem extends StatelessWidget {
           width: 35,
           child: IconButton(
             icon: const Icon(Icons.delete_outline),
-            color: tdButtonColor,
+            color: AppColors(context).tdButtonColor,
             iconSize: 26,
             onPressed: () {
               _showDeleteConfirmationDialog(context, todo.id);

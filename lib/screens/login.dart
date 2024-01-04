@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
-import 'package:simpletodo/constants/colors.dart';
+import 'package:simpletodo/constants/app_colors.dart';
 import 'package:simpletodo/helpers/user_helper.dart';
 import 'package:simpletodo/screens/home.dart';
 import 'package:simpletodo/screens/register.dart';
@@ -27,7 +27,7 @@ class LoginPageState extends State<LoginPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: tdBGColor,
+      backgroundColor: AppColors(context).tdBGColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -54,8 +54,8 @@ class LoginPageState extends State<LoginPage> {
         children: [
           TextSpan(
             text: context.translate.signup,
-            style: const TextStyle(
-              color: Colors.black,
+            style: TextStyle(
+              color: AppColors(context).tdTextColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -109,10 +109,10 @@ class LoginPageState extends State<LoginPage> {
         child: Center(
           child: Text(
             context.translate.signinButtonText,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppColors(context).tdTextColor,
             ),
           ),
         ),
@@ -167,7 +167,7 @@ class LoginPageState extends State<LoginPage> {
   Container emailContainer() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors(context).tdBGColor,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -182,14 +182,15 @@ class LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
           hintText: context.translate.email,
           hintStyle: const TextStyle(color: Colors.grey),
-          prefixIcon: const Icon(Icons.email, color: tdDeepOrangeAccent),
+          prefixIcon:
+              Icon(Icons.email, color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -203,7 +204,7 @@ class LoginPageState extends State<LoginPage> {
   Container passwordContainer() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors(context).tdBGColor,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -219,14 +220,15 @@ class LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
           hintText: context.translate.password,
           hintStyle: const TextStyle(color: Colors.grey),
-          prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
+          prefixIcon: Icon(Icons.password,
+              color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),

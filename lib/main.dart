@@ -16,9 +16,11 @@ class MyApp extends StatelessWidget {
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ToDo App',
+      title: 'Simple ToDo',
       home: const SplashScreen(),
-      theme: AppSettings.defaultTheme,
+      theme: AppSettings.lightTheme,
+      darkTheme: AppSettings.darkTheme,
+      themeMode: ThemeMode.system,
       supportedLocales: AppSettings.supportedLocales,
       localizationsDelegates: AppSettings.localizationsDelegates,
       localeResolutionCallback: AppSettings.localeResolutionCallback,

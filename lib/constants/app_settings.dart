@@ -4,8 +4,16 @@ import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/util/localization.dart';
 
 class AppSettings {
-  static ThemeData defaultTheme = ThemeData(fontFamily: AppFontStyles.exo);
-  
+  static final ThemeData lightTheme = ThemeData(
+    fontFamily: AppFontStyles.exo,
+    brightness: Brightness.light,
+  );
+
+  static final ThemeData darkTheme = ThemeData(
+    fontFamily: AppFontStyles.exo,
+    brightness: Brightness.dark,
+  );
+
   static const List<Locale> supportedLocales = [
     Locale('en', 'US'),
     Locale('tr', 'TR'),
