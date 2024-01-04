@@ -6,7 +6,7 @@ Welcome to the Simple ToDo App, a quick and easy-to-use task management applicat
 
 ## Screenshot
 
-### Ligh Mode
+### Light Mode
 
 <img src="screenshot/login.jpg" width="150px"></img> &nbsp; <img src="screenshot/register.jpg" width="150px" /> &nbsp; <img src="screenshot/resetpassword.jpg" width="150px" /> &nbsp; <img src="screenshot/home.jpg" width="150px" />
 
