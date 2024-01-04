@@ -55,6 +55,9 @@ class AppLangTranslations {
   String get aboutAppTitle => _appLocalizations.translate(key: 'about_app_title');
   String get developedBy => _appLocalizations.translate(key: 'developedby');
   String get contact => _appLocalizations.translate(key: 'contact');
+  String get send => _appLocalizations.translate(key: 'send');
+  String get passwordResetHeaderText => _appLocalizations.translate(key: 'password_reset_header_text');
+  String get successSendMail => _appLocalizations.translate(key: 'success_send_mail_message');
 }
 
 extension AppLangContextExtension on BuildContext {

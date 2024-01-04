@@ -10,25 +10,20 @@ import 'package:simpletodo/helpers/user_helper.dart';
 import 'package:simpletodo/screens/splash.dart';
 import 'package:simpletodo/util/toaster.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  RegisterScreenState createState() => RegisterScreenState();
+  ResetPasswordScreenState createState() => ResetPasswordScreenState();
 }
 
-class RegisterScreenState extends State<RegisterScreen> {
-  String? _userMail, _userPassword;
+class ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  String? _userMail;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    // List socialImages = [
-    //   AppAssets.googleLogo,
-    //   AppAssets.twitterLogo,
-    //   AppAssets.facebookLogo
-    // ];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -38,11 +33,8 @@ class RegisterScreenState extends State<RegisterScreen> {
             headerContainer(screenWidth, screenHeight),
             inputsContainer(screenWidth, context),
             const SizedBox(height: 50),
-            registerBtnContainer(screenWidth, screenHeight, context),
+            resetBtnContainer(screenWidth, screenHeight, context),
             SizedBox(height: screenHeight * 0.07),
-            //signupWithAppRichText(context),
-            //loginWithAppWrap(socialImages),
-            //SizedBox(height: screenHeight * 0.03),
             backToLoginText(context),
           ],
         ),
@@ -66,53 +58,18 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  // Wrap loginWithAppWrap(List<dynamic> socialImages) {
-  //   return Wrap(
-  //     children: List<Widget>.generate(
-  //       3,
-  //       (index) => Padding(
-  //         padding: const EdgeInsets.all(10.0),
-  //         child: CircleAvatar(
-  //           radius: 30,
-  //           backgroundColor: Colors.grey[200],
-  //           child: CircleAvatar(
-  //             radius: 26,
-  //             backgroundImage: AssetImage(socialImages[index]),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // RichText signupWithAppRichText(BuildContext context) {
-  //   return RichText(
-  //     text: TextSpan(
-  //       text: context.translate.signupWithAppText,
-  //       style: TextStyle(
-  //         color: Colors.grey[500],
-  //         fontSize: 16,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget registerBtnContainer(
+  Widget resetBtnContainer(
       double screenWidth, double screenHeight, BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (UserHelper.isValidEmail(_userMail)) {
           ConstToast.error(context.translate.invalidEmail);
-        } else if (UserHelper.isValidPassword(_userPassword)) {
-          ConstToast.error(context.translate.invalidPassword);
         } else {
-          _signUpUser().then((user) {
-            if (user != null) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const SplashScreen()),
-              );
-            }
+          _passwordReset().then((r) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const SplashScreen()),
+            );
           }).catchError((e) {
             if (kDebugMode) {
               print(e);
@@ -132,7 +89,7 @@ class RegisterScreenState extends State<RegisterScreen> {
         ),
         child: Center(
           child: Text(
-            context.translate.signupButtonText,
+            context.translate.send,
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -153,25 +110,8 @@ class RegisterScreenState extends State<RegisterScreen> {
         children: [
           const SizedBox(height: 50),
           emailContainer(),
-          const SizedBox(height: 20),
-          passwordContainer(),
         ],
       ),
-    );
-  }
-
-  Row forgotPasswordRow(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(child: Container()),
-        Text(
-          context.translate.forgotPasswordText,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[500],
-          ),
-        ),
-      ],
     );
   }
 
@@ -211,58 +151,11 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Container passwordContainer() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            spreadRadius: 2,
-            offset: const Offset(1, 1),
-            color: Colors.grey.withOpacity(0.3),
-          )
-        ],
-      ),
-      child: TextField(
-        obscureText: true,
-        decoration: InputDecoration(
-          hintText: context.translate.password,
-          hintStyle: const TextStyle(color: Colors.grey),
-          prefixIcon: const Icon(Icons.password, color: tdDeepOrangeAccent),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(color: Colors.white, width: 1.0),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-        ),
-        onChanged: (value) => _userPassword = value,
-      ),
-    );
-  }
-
-  Text signSubText(BuildContext context) {
+  Text headerText(BuildContext context) {
     return Text(
-      context.translate.siginSubText,
-      style: TextStyle(
-        fontSize: 18,
-        color: Colors.grey[500],
-      ),
-    );
-  }
-
-  Text helloText(BuildContext context) {
-    return Text(
-      context.translate.hello,
+      context.translate.passwordResetHeaderText,
       style: const TextStyle(
-        fontSize: 54,
+        fontSize: 40,
         fontFamily: AppFontStyles.freestyleScript,
       ),
     );
@@ -284,25 +177,23 @@ class RegisterScreenState extends State<RegisterScreen> {
           const CircleAvatar(
             radius: 50,
             backgroundColor: Colors.white70,
-            backgroundImage: AssetImage(AppAssets.profileImg),
+            backgroundImage: AssetImage(AppAssets.profileForgotImg),
           ),
         ],
       ),
     );
   }
 
-  Future<User?> _signUpUser() async => _handleSignIn().catchError((e) {
+  Future _passwordReset() async => _handlePasswordReset()
+          .then((r) => ConstToast.success(context.translate.successSendMail))
+          .catchError((e) {
         ConstToast.error(context.translate.userNotSaved);
         return null;
       });
 
-  Future<User?> _handleSignIn() async {
+  Future _handlePasswordReset() async {
     var email = _userMail!.trim();
-    var password = _userPassword!;
     final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = (await auth.createUserWithEmailAndPassword(
-            email: email, password: password))
-        .user;
-    return user;
+    await auth.sendPasswordResetEmail(email: email);
   }
 }

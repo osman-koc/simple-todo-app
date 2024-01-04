@@ -5,4 +5,5 @@ class AppAssets {
   static const String loginBtn = 'assets/images/login/loginbtn.png';
   static const String signUpHeader = 'assets/images/login/signup.png';
   static const String profileImg = 'assets/images/login/profile.png';
+  static const String profileForgotImg = 'assets/images/login/profile_forgot.png';
 }

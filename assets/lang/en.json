@@ -38,5 +38,8 @@
     "error_logout_message": "Server error: Failed to log out.",
     "about_app_title": "About App",
     "developedby": "Developed by",
-    "contact": "Contact"
+    "contact": "Contact",
+    "send": "Send",
+    "password_reset_header_text": "Reset Password",
+    "success_send_mail_message": "Password reset email has been sent successfully."
 }

@@ -6,8 +6,10 @@ import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:simpletodo/constants/colors.dart';
+import 'package:simpletodo/helpers/user_helper.dart';
 import 'package:simpletodo/screens/home.dart';
 import 'package:simpletodo/screens/register.dart';
+import 'package:simpletodo/screens/reset_password.dart';
 import 'package:simpletodo/util/toaster.dart';
 
 class LoginPage extends StatefulWidget {
@@ -75,9 +77,9 @@ class LoginPageState extends State<LoginPage> {
       double screenWidth, double screenHeight, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (_userMail == null || _userMail!.length <= 5) {
+        if (UserHelper.isValidEmail(_userMail)) {
           ConstToast.error(context.translate.invalidEmail);
-        } else if (_userPassword == null || _userPassword!.length <= 6) {
+        } else if (UserHelper.isValidPassword(_userPassword)) {
           ConstToast.error(context.translate.invalidPassword);
         } else {
           _loginUser().then((user) {
@@ -142,11 +144,20 @@ class LoginPageState extends State<LoginPage> {
     return Row(
       children: [
         Expanded(child: Container()),
-        Text(
-          context.translate.forgotPasswordText,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[500],
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ResetPasswordScreen()),
+            );
+          },
+          child: Text(
+            context.translate.forgotPasswordText,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[500],
+            ),
           ),
         ),
       ],
