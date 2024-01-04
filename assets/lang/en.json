@@ -45,5 +45,9 @@
     "todo_item_empty_message": "You cannot add an empty todo.",
     "todo_item_success_message": "Added successfully.",
     "delete_item_success_message": "Deleted successfully.",
-    "delete_item_error_message": "Server error: Could not delete item."
+    "delete_item_error_message": "Server error: Could not delete item.",
+    "todo_item_update_header": "Update Item",
+    "enter_new_value": "Enter new value",
+    "cancel": "Cancel",
+    "save": "Save"
 }

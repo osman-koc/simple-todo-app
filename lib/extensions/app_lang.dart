@@ -62,6 +62,10 @@ class AppLangTranslations {
   String get todoItemSuccessMessage => _appLocalizations.translate(key: 'todo_item_success_message');
   String get deleteItemSuccessMessage => _appLocalizations.translate(key: 'delete_item_success_message');
   String get deleteItemErrorMessage => _appLocalizations.translate(key: 'delete_item_error_message');
+  String get todoItemUpdateHeader => _appLocalizations.translate(key: 'todo_item_update_header');
+  String get enterNewValue => _appLocalizations.translate(key: 'enter_new_value');
+  String get cancel => _appLocalizations.translate(key: 'cancel');
+  String get save => _appLocalizations.translate(key: 'save');
 }
 
 extension AppLangContextExtension on BuildContext {

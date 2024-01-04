@@ -7,13 +7,15 @@ class ToDoItem extends StatelessWidget {
   final ToDoModel todo;
   final dynamic onToDoChanged;
   final dynamic onDeleteItem;
+  final dynamic onCheckItem;
 
-  const ToDoItem({
-    Key? key,
-    required this.todo,
-    required this.onToDoChanged,
-    required this.onDeleteItem,
-  }) : super(key: key);
+  const ToDoItem(
+      {Key? key,
+      required this.todo,
+      required this.onToDoChanged,
+      required this.onDeleteItem,
+      required this.onCheckItem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,6 @@ class ToDoItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () {
-          // print('Clicked on Todo Item.');
           onToDoChanged(todo);
         },
         shape: RoundedRectangleBorder(
@@ -29,10 +30,19 @@ class ToDoItem extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: tdInputBgColor,
-        leading: Icon(
-          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
-          color: todo.isDone ? tdGreen : tdGrey,
+        leading: InkWell(
+          onTap: () {
+            onCheckItem(todo);
+          },
+          child: Icon(
+            todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
+            color: todo.isDone ? tdGreen : tdGrey,
+          ),
         ),
+        // leading: Icon(
+        //   todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
+        //   color: todo.isDone ? tdGreen : tdGrey,
+        // ),
         title: Text(
           todo.todoText!,
           style: TextStyle(

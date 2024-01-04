@@ -22,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _todoController = TextEditingController();
   final _searchController = TextEditingController();
+  final _updateController = TextEditingController();
 
   late User _user;
   late CollectionReference _userTodos;
@@ -168,8 +169,9 @@ class _HomeScreenState extends State<HomeScreen> {
             for (ToDoModel item in foundToDo)
               ToDoItem(
                 todo: item,
-                onToDoChanged: _handleToDoChange,
+                onToDoChanged: _handleToDoUpdate,
                 onDeleteItem: _deleteToDoItem,
+                onCheckItem: _checkToDoItem,
               ),
           ],
         );
@@ -210,8 +212,55 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _handleToDoChange(ToDoModel todo) async {
+  void _handleToDoUpdate(ToDoModel todo) async {
+    if (todo.id == null) return;
+    _updateController.text = todo.todoText ?? '';
+    showUpdateDialog(todo);
+  }
+
+  void showUpdateDialog(ToDoModel todo) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(context.translate.todoItemUpdateHeader),
+          content: TextField(
+            controller: _updateController,
+            decoration: InputDecoration(
+              hintText: context.translate.enterNewValue,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(context.translate.cancel),
+            ),
+            TextButton(
+              onPressed: () {
+                String newTodoText = _updateController.text;
+                if (newTodoText.isEmpty) {
+                  ConstToast.error(context.translate.todoItemEmptyMessage);
+                } else {
+                  _updateToDoItem(todo.id!, newTodoText);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(context.translate.save),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _checkToDoItem(ToDoModel todo) async {
     await _userTodos.doc(todo.id).update({'isDone': !todo.isDone});
+  }
+
+  void _updateToDoItem(String id, String newTodoText) async {
+    await _userTodos.doc(id).update({'todoText': newTodoText});
   }
 
   void _deleteToDoItem(String id) {
