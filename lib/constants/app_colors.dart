@@ -14,7 +14,6 @@ class AppColors {
   Color get tdDeepOrangeAccent => Colors.deepOrangeAccent;
   Color get tdGrey => Colors.grey;
   Color get tdGreen => Colors.green;
-  Color get tdWhite => Colors.white;
 
   Color get tdTextColor {
     return isDarkMode ? Colors.white : Colors.black;
