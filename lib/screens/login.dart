@@ -112,7 +112,7 @@ class LoginPageState extends State<LoginPage> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: AppColors(context).tdTextColor,
+              color: AppColors(context).tdBGColor,
             ),
           ),
         ),
@@ -186,11 +186,11 @@ class LoginPageState extends State<LoginPage> {
               Icon(Icons.email, color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdBGColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -224,11 +224,11 @@ class LoginPageState extends State<LoginPage> {
               color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdBGColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),

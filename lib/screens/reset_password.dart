@@ -93,7 +93,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: AppColors(context).tdTextColor,
+              color: AppColors(context).tdBGColor,
             ),
           ),
         ),
@@ -137,11 +137,11 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
               Icon(Icons.email, color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdTextColor, width: 1.0),
+            borderSide: BorderSide(color: AppColors(context).tdBGColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -177,7 +177,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
           SizedBox(height: screenHeight * 0.16),
          CircleAvatar(
             radius: 50,
-            backgroundColor: AppColors(context).tdTextColor,
+            backgroundColor: AppColors(context).tdBGColor,
             backgroundImage: const AssetImage(AppAssets.profileForgotImg),
           ),
         ],

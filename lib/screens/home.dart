@@ -54,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 searchBox(context),
                 Expanded(
                   child: todoListWidget(context),
-                )
+                ),
+                const SizedBox(height: 120),
               ],
             ),
           ),
