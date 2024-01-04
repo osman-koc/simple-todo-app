@@ -58,6 +58,10 @@ class AppLangTranslations {
   String get send => _appLocalizations.translate(key: 'send');
   String get passwordResetHeaderText => _appLocalizations.translate(key: 'password_reset_header_text');
   String get successSendMail => _appLocalizations.translate(key: 'success_send_mail_message');
+  String get todoItemEmptyMessage => _appLocalizations.translate(key: 'todo_item_empty_message');
+  String get todoItemSuccessMessage => _appLocalizations.translate(key: 'todo_item_success_message');
+  String get deleteItemSuccessMessage => _appLocalizations.translate(key: 'delete_item_success_message');
+  String get deleteItemErrorMessage => _appLocalizations.translate(key: 'delete_item_error_message');
 }
 
 extension AppLangContextExtension on BuildContext {

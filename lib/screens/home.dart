@@ -214,19 +214,31 @@ class _HomeScreenState extends State<HomeScreen> {
     await _userTodos.doc(todo.id).update({'isDone': !todo.isDone});
   }
 
-  void _deleteToDoItem(String id) async {
-    await _userTodos.doc(id).delete();
+  void _deleteToDoItem(String id) {
+    _userTodos
+        .doc(id)
+        .delete()
+        .then((r) =>
+            ConstToast.success(context.translate.deleteItemSuccessMessage))
+        .catchError((e) =>
+            ConstToast.success(context.translate.deleteItemErrorMessage));
   }
 
   void _addToDoItem(String toDoText) async {
-    await _userTodos
-        .add({
-          'todoText': toDoText,
-          'isDone': false,
-          'creationDate': FieldValue.serverTimestamp()
-        })
-        .then((value) => _todoController.clear())
-        .catchError((error) => ConstToast.error(context.translate.errorSave));
+    if (toDoText.trim().isEmpty) {
+      ConstToast.error(context.translate.todoItemEmptyMessage);
+    } else {
+      await _userTodos.add({
+        'todoText': toDoText,
+        'isDone': false,
+        'creationDate': FieldValue.serverTimestamp()
+      }).then((value) {
+        //ConstToast.success(context.translate.todoItemSuccessMessage);
+        _todoController.clear();
+      }).catchError((error) {
+        ConstToast.error(context.translate.errorSave);
+      });
+    }
   }
 
   AppBar _buildAppBar() {

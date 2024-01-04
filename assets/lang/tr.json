@@ -41,5 +41,9 @@
     "contact": "İletişim",
     "send": "Gönder",
     "password_reset_header_text": "Şifreyi Sıfırla",
-    "success_send_mail_message": "Şifre sıfırlama maili başarıyla gönderildi."
+    "success_send_mail_message": "Şifre sıfırlama maili başarıyla gönderildi.",
+    "todo_item_empty_message": "Boş bir şey ekleyemezsiniz.",
+    "todo_item_success_message": "Başarıyla eklendi.",
+    "delete_item_success_message": "Başarıyla silindi.",
+    "delete_item_error_message": "Sunucu hatası: Kayıt silinemedi."
 }
