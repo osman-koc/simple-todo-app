@@ -186,11 +186,13 @@ class LoginPageState extends State<LoginPage> {
               Icon(Icons.email, color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
+            borderSide: BorderSide(
+                color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdBGColor, width: 1.0),
+            borderSide:
+                BorderSide(color: AppColors(context).tdBGColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -224,11 +226,13 @@ class LoginPageState extends State<LoginPage> {
               color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
+            borderSide: BorderSide(
+                color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: AppColors(context).tdBGColor, width: 1.0),
+            borderSide:
+                BorderSide(color: AppColors(context).tdBGColor, width: 1.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -273,6 +277,9 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Future<User?> _loginUser() async => _handleSignIn().catchError((e) {
+        if (kDebugMode) {
+          print(e);
+        }
         ConstToast.error(context.translate.emailOrPasswordWrong);
         return null;
       });

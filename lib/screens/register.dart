@@ -197,8 +197,8 @@ class RegisterScreenState extends State<RegisterScreen> {
               Icon(Icons.email, color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide:
-                BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
+            borderSide: BorderSide(
+                color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -237,8 +237,8 @@ class RegisterScreenState extends State<RegisterScreen> {
               color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide:
-                BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
+            borderSide: BorderSide(
+                color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -298,6 +298,9 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<User?> _signUpUser() async => _handleSignIn().catchError((e) {
+        if (kDebugMode) {
+          print(e);
+        }
         ConstToast.error(context.translate.userNotSaved);
         return null;
       });
