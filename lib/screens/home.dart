@@ -66,12 +66,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   margin: const EdgeInsets.only(
                     bottom: 20,
-                    right: 20,
+                    right: 18,
                     left: 20,
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
-                    vertical: 5,
+                    vertical: 8,
                   ),
                   decoration: BoxDecoration(
                     color: AppColors(context).tdBGColor,
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         spreadRadius: 0.0,
                       ),
                     ],
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     controller: _todoController,
@@ -100,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   right: 20,
                 ),
                 decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
                   image: DecorationImage(
                     image: AssetImage(AppAssets.loginBtn),
                     fit: BoxFit.cover,
@@ -110,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     _addToDoItem(_todoController.text);
                   },
                   style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
                     backgroundColor: AppColors(context).tdButtonColor,
                     minimumSize: const Size(60, 60),
                     elevation: 10,
