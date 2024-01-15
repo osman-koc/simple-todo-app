@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: todoListWidget(context),
                 ),
-                const SizedBox(height: 120),
+                const SizedBox(height: 80),
               ],
             ),
           ),
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(
-                    bottom: 20,
+                    bottom: 22,
                     right: 18,
                     left: 20,
                   ),
