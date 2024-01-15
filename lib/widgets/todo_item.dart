@@ -52,7 +52,7 @@ class ToDoItem extends StatelessWidget {
             color: AppColors(context).tdTextColor,
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
             decorationColor: AppColors(context).tdTextColor,
-            decorationStyle: TextDecorationStyle.double,
+            decorationStyle: TextDecorationStyle.solid,
           ),
         ),
         trailing: Container(
