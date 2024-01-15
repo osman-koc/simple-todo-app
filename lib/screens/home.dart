@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    _addToDoItem(_todoController.text);
+                    _addToDoItem(_todoController.text.trim());
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             TextButton(
               onPressed: () {
-                String newTodoText = _updateController.text;
+                String newTodoText = _updateController.text.trim();
                 if (newTodoText.isEmpty) {
                   ConstToast.error(context.translate.todoItemEmptyMessage);
                 } else {
@@ -283,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _addToDoItem(String toDoText) async {
-    if (toDoText.trim().isEmpty) {
+    if (toDoText.isEmpty) {
       ConstToast.error(context.translate.todoItemEmptyMessage);
     } else {
       await _userTodos.add({
