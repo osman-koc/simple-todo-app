@@ -25,11 +25,11 @@ class ToDoItem extends StatelessWidget {
         onTap: () {
           onToDoChanged(todo);
         },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        tileColor: AppColors(context).tdInputBgColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        tileColor: todo.isDone
+            ? AppColors(context).tdInputBgColorDone
+            : AppColors(context).tdInputBgColor,
         leading: InkWell(
           onTap: () {
             onCheckItem(todo);
@@ -49,15 +49,19 @@ class ToDoItem extends StatelessWidget {
           todo.todoText!,
           style: TextStyle(
             fontSize: 16,
-            color: AppColors(context).tdTextColor,
+            color: todo.isDone
+                ? AppColors(context).tdTextColorDone
+                : AppColors(context).tdTextColor,
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
-            decorationColor: AppColors(context).tdTextColor,
+            decorationColor: todo.isDone
+                ? AppColors(context).tdTextColorDone
+                : AppColors(context).tdTextColor,
             decorationStyle: TextDecorationStyle.solid,
           ),
         ),
         trailing: Container(
-          padding: const EdgeInsets.all(0),
-          margin: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           height: 35,
           width: 35,
           child: IconButton(

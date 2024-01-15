@@ -49,5 +49,6 @@
     "todo_item_update_header": "Güncelle",
     "enter_new_value": "Yeni değeri girin",
     "cancel": "İptal",
-    "save": "Kaydet"
+    "save": "Kaydet",
+    "update_done_item_error_message": "Tamamlanan öğeyi güncelleyemezsiniz."
 }

@@ -49,5 +49,6 @@
     "todo_item_update_header": "Update Item",
     "enter_new_value": "Enter new value",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "update_done_item_error_message": "You cannot update the completed item."
 }

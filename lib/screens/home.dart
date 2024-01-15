@@ -218,6 +218,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _handleToDoUpdate(ToDoModel todo) async {
     if (todo.id == null) return;
+    if (todo.isDone) {
+      ConstToast.error(context.translate.updateDoneItemError);
+      return;
+    }
+
     _updateController.text = todo.todoText ?? '';
     showUpdateDialog(todo);
   }
