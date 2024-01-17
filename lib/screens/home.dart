@@ -23,18 +23,33 @@ class _HomeScreenState extends State<HomeScreen> {
   final _todoController = TextEditingController();
   final _searchController = TextEditingController();
   final _updateController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
 
   late User _user;
   late CollectionReference _userTodos;
+  bool _searchingEnable = false;
 
   @override
   void initState() {
     super.initState();
+
     _user = FirebaseAuth.instance.currentUser!;
     _userTodos = FirebaseFirestore.instance
         .collection('todos')
         .doc(_user.uid)
         .collection('user_todos');
+
+    _searchFocusNode.addListener(() {
+      if (!_searchFocusNode.hasFocus) {
+        setState(() {
+          setSearchingEnabled(_searchController.text.isNotEmpty);
+        });
+      }
+    });
+  }
+
+  void setSearchingEnabled(bool value) {
+    _searchingEnable = value;
   }
 
   @override
@@ -44,88 +59,100 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: _buildAppBar(),
       body: Stack(
         children: [
-          Container(
+          todoListContainer(context),
+          !_searchingEnable
+              ? addNewItemAlign(context)
+              : const SizedBox(height: 1),
+        ],
+      ),
+    );
+  }
+
+  Align addNewItemAlign(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(children: [
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(
+              bottom: 22,
+              right: 18,
+              left: 20,
+            ),
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 15,
+              vertical: 8,
             ),
-            child: Column(
-              children: [
-                searchBox(context),
-                Expanded(
-                  child: todoListWidget(context),
+            decoration: BoxDecoration(
+              color: AppColors(context).tdBGColor,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 0.0),
+                  blurRadius: 10.0,
+                  spreadRadius: 0.0,
                 ),
-                const SizedBox(height: 80),
               ],
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: TextField(
+              controller: _todoController,
+              decoration: InputDecoration(
+                hintText: context.translate.addNewItem,
+                border: InputBorder.none,
+              ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 22,
-                    right: 18,
-                    left: 20,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors(context).tdBGColor,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 0.0),
-                        blurRadius: 10.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: TextField(
-                    controller: _todoController,
-                    decoration: InputDecoration(
-                      hintText: context.translate.addNewItem,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  bottom: 20,
-                  right: 20,
-                ),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage(AppAssets.loginBtn),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    _addToDoItem(_todoController.text.trim());
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    backgroundColor: AppColors(context).tdButtonColor,
-                    minimumSize: const Size(60, 60),
-                    elevation: 10,
-                  ),
-                  child: const Text(
-                    '+',
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
-                  ),
-                ),
-              ),
-            ]),
+        ),
+        Container(
+          margin: const EdgeInsets.only(
+            bottom: 20,
+            right: 20,
           ),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage(AppAssets.loginBtn),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: ElevatedButton(
+            onPressed: () {
+              _addToDoItem(_todoController.text.trim());
+            },
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              backgroundColor: AppColors(context).tdButtonColor,
+              minimumSize: const Size(60, 60),
+              elevation: 10,
+            ),
+            child: const Text(
+              '+',
+              style: TextStyle(
+                fontSize: 40,
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Container todoListContainer(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 15,
+      ),
+      child: Column(
+        children: [
+          searchBox(context),
+          Expanded(
+            child: todoListWidget(context),
+          ),
+          !_searchingEnable
+              ? const SizedBox(height: 80)
+              : const SizedBox(height: 10),
         ],
       ),
     );
@@ -194,15 +221,39 @@ class _HomeScreenState extends State<HomeScreen> {
         onChanged: (value) {
           setState(() {
             _searchController.text = value;
+            setSearchingEnabled(true);
           });
         },
+        onTap: () {
+          setState(() {
+            setSearchingEnabled(true);
+          });
+        },
+        onEditingComplete: () {
+          setState(() {
+            setSearchingEnabled(_searchController.text.isNotEmpty);
+            _searchFocusNode.unfocus();
+          });
+        },
+        focusNode: _searchFocusNode,
         controller: _searchController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(0),
-          prefixIcon: Icon(
-            Icons.search,
-            color: AppColors(context).tdTextColor,
-            size: 20,
+          prefixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_searchingEnable) {
+                  _searchController.clear();
+                  _searchFocusNode.unfocus();
+                  setSearchingEnabled(false);
+                }
+              });
+            },
+            child: Icon(
+              _searchingEnable ? Icons.close : Icons.search,
+              color: AppColors(context).tdTextColor,
+              size: 20,
+            ),
           ),
           prefixIconConstraints: const BoxConstraints(
             maxHeight: 20,
