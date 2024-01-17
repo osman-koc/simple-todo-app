@@ -19,6 +19,7 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterScreenState extends State<RegisterScreen> {
   String? _userMail, _userPassword;
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -229,12 +230,23 @@ class RegisterScreenState extends State<RegisterScreen> {
         ],
       ),
       child: TextField(
-        obscureText: true,
+        obscureText: !_passwordVisible,
         decoration: InputDecoration(
           hintText: context.translate.password,
           hintStyle: const TextStyle(color: Colors.grey),
           prefixIcon: Icon(Icons.password,
               color: AppColors(context).tdDeepOrangeAccent),
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+            icon: Icon(
+              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+              color: AppColors(context).tdDeepOrangeAccent,
+            ),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide:
