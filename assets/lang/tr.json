@@ -44,6 +44,7 @@
     "success_send_mail_message": "Şifre sıfırlama maili başarıyla gönderildi.",
     "todo_item_empty_message": "Boş bir şey ekleyemezsiniz.",
     "todo_item_success_message": "Başarıyla eklendi.",
+    "todo_item_exists_message": "Aynı değerde bir ToDo kaydınız zaten var.",
     "delete_item_success_message": "Başarıyla silindi.",
     "delete_item_error_message": "Sunucu hatası: Kayıt silinemedi.",
     "todo_item_update_header": "Güncelle",

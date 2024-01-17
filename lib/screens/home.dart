@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 todo: item,
                 onToDoChanged: _handleToDoUpdate,
                 onDeleteItem: _deleteToDoItem,
-                onCheckItem: _checkToDoItem,
+                onCheckItem: _updateStatusToDoItem,
               ),
           ],
         );
@@ -264,12 +264,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _checkToDoItem(ToDoModel todo) async {
+  void _updateStatusToDoItem(ToDoModel todo) async {
     await _userTodos.doc(todo.id).update({'isDone': !todo.isDone});
   }
 
   void _updateToDoItem(String id, String newTodoText) async {
-    await _userTodos.doc(id).update({'todoText': newTodoText});
+    await itemCheck(id, newTodoText, () async {
+      await _userTodos.doc(id).update({'todoText': newTodoText});
+    });
   }
 
   void _deleteToDoItem(String id) {
@@ -283,9 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _addToDoItem(String toDoText) async {
-    if (toDoText.isEmpty) {
-      ConstToast.error(context.translate.todoItemEmptyMessage);
-    } else {
+    await itemCheck(null, toDoText, () async {
       await _userTodos.add({
         'todoText': toDoText,
         'isDone': false,
@@ -293,6 +293,28 @@ class _HomeScreenState extends State<HomeScreen> {
       }).then((value) {
         //ConstToast.success(context.translate.todoItemSuccessMessage);
         _todoController.clear();
+      }).catchError((error) {
+        ConstToast.error(context.translate.errorSave);
+      });
+    });
+  }
+
+  Future itemCheck(
+      String? id, String toDoText, void Function() onSuccessCallback) async {
+    toDoText = toDoText.trim();
+    if (toDoText.isEmpty) {
+      ConstToast.error(context.translate.todoItemEmptyMessage);
+    } else {
+      Query query = _userTodos.where('todoText', isEqualTo: toDoText);
+      query.get().then((snapshot) {
+        bool itemExists = id == null
+            ? snapshot.docs.isNotEmpty
+            : snapshot.docs.where((x) => x.id != id).isNotEmpty;
+        if (itemExists) {
+          ConstToast.error(context.translate.todoItemExistsMesage);
+        } else {
+          onSuccessCallback();
+        }
       }).catchError((error) {
         ConstToast.error(context.translate.errorSave);
       });

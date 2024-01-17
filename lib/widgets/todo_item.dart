@@ -87,16 +87,16 @@ class ToDoItem extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(context.translate.cancel),
+            ),
+            TextButton(
+              onPressed: () {
                 onDeleteItem(todoId);
                 Navigator.of(context).pop();
               },
               child: Text(context.translate.yes),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(context.translate.no),
             ),
           ],
         );
