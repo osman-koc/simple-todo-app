@@ -68,6 +68,7 @@ class AppLangTranslations {
   String get cancel => _appLocalizations.translate(key: 'cancel');
   String get save => _appLocalizations.translate(key: 'save');
   String get updateDoneItemError => _appLocalizations.translate(key: 'update_done_item_error_message');
+  String get noRecords => _appLocalizations.translate(key: 'no_records_found');
 }
 
 extension AppLangContextExtension on BuildContext {

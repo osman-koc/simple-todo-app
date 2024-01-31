@@ -26,7 +26,7 @@
     "yes": "Yes",
     "email_password_wrong": "Email or password is incorrect!",
     "invalid_email": "Invalid e-mail!",
-    "invalid_password": "Invalid password! (Min 6 characters)",
+    "invalid_password": "Invalid password! (Min 7 characters)",
     "user_not_saved": "Registration failed. Check the information and try again.",
     "error_save": "Server error: Registration failed.",
     "my_account": "My Account",
@@ -51,5 +51,6 @@
     "enter_new_value": "Enter new value",
     "cancel": "Cancel",
     "save": "Save",
-    "update_done_item_error_message": "You cannot update the completed item."
+    "update_done_item_error_message": "You cannot update the completed item.",
+    "no_records_found": "No records found."
 }

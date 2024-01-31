@@ -26,7 +26,7 @@
     "yes": "Evet",
     "email_password_wrong": "E-posta veya şifre hatalı!",
     "invalid_email": "Geçersiz e-posta adresi!",
-    "invalid_password": "Geçersiz şifre! (Min 6 karakter)",
+    "invalid_password": "Geçersiz şifre! (Min 7 karakter)",
     "user_not_saved": "Kayıt yapılamadı. Bilgileri kontrol edip tekrar deneyin.",
     "error_save": "Sunucu hatası: Kayıt yapılamadı.",
     "my_account": "Hesabım",
@@ -51,5 +51,6 @@
     "enter_new_value": "Yeni değeri girin",
     "cancel": "İptal",
     "save": "Kaydet",
-    "update_done_item_error_message": "Tamamlanan öğeyi güncelleyemezsiniz."
+    "update_done_item_error_message": "Tamamlanan öğeyi güncelleyemezsiniz.",
+    "no_records_found": "Herhangi bir kayıt bulunamadı."
 }

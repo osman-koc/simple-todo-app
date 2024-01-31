@@ -180,6 +180,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 .contains(_searchController.text.toLowerCase()))
             .toList();
 
+        if (foundToDo.isEmpty) {
+          return Container(
+            margin: const EdgeInsets.only(
+              top: 50,
+              bottom: 20,
+            ),
+            child: Text(
+              context.translate.noRecords,
+              style: TextStyle(
+                color: AppColors(context).tdTextColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          );
+        }
+
         return ListView(
           children: [
             Container(
