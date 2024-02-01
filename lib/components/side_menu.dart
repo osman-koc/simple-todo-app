@@ -32,7 +32,7 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   Widget buildHeader(BuildContext context) => Material(
-        color: AppColors(context).tdTextColorDone,
+        color: Colors.grey[800],
         child: InkWell(
           onTap: () {
             Navigator.pop(context);
