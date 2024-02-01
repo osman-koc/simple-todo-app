@@ -32,7 +32,7 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   Widget buildHeader(BuildContext context) => Material(
-        color: AppColors(context).tdButtonColor,
+        color: AppColors(context).tdTextColorDone,
         child: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -46,7 +46,7 @@ class _SideMenuState extends State<SideMenu> {
               children: [
                 const CircleAvatar(
                   radius: 52,
-                  backgroundImage: AssetImage(AppAssets.defaultUserAvatar),
+                  backgroundImage: AssetImage(AppAssets.defaultUserAvatarOrange),
                 ),
                 const SizedBox(height: 12),
                 Text(
