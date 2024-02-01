@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:simpletodo/constants/app_colors.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,6 +10,20 @@ class AboutScreenPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var appVersion = snapshot.data!.version;
+          return getAlertDialog(context, appVersion);
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  AlertDialog getAlertDialog(BuildContext context, String appVersion) {
     return AlertDialog(
       title: Text(context.translate.aboutAppTitle),
       content: Column(
@@ -25,7 +40,7 @@ class AboutScreenPopup extends StatelessWidget {
           const SizedBox(height: 3),
           Center(
             child: Text(
-              'v${context.translate.appVersion}',
+              'v$appVersion',
               style: const TextStyle(fontSize: 16),
             ),
           ),
@@ -55,10 +70,12 @@ class AboutScreenPopup extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: context.translate.appWebsite,
-                style: TextStyle(fontSize: 14, color: AppColors(context).tdBlue),
+                style:
+                    TextStyle(fontSize: 14, color: AppColors(context).tdBlue),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    var webUri = Uri.parse("https://${context.translate.appWebsite}");
+                    var webUri =
+                        Uri.parse("https://${context.translate.appWebsite}");
                     launchUrl(webUri);
                   },
               ),
@@ -69,10 +86,12 @@ class AboutScreenPopup extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: context.translate.appMail,
-                style: TextStyle(fontSize: 14, color: AppColors(context).tdBlue),
+                style:
+                    TextStyle(fontSize: 14, color: AppColors(context).tdBlue),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    var webUri = Uri.parse("mailto:${context.translate.appMail}");
+                    var webUri =
+                        Uri.parse("mailto:${context.translate.appMail}");
                     launchUrl(webUri);
                   },
               ),

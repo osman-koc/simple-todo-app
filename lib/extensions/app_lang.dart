@@ -8,7 +8,6 @@ class AppLangTranslations {
   AppLangTranslations(this._appLocalizations);
 
   String get appName => _appLocalizations.translate(key: 'app_name');
-  String get appVersion => _appLocalizations.translate(key: 'app_version');
   String get appDeveloper => _appLocalizations.translate(key: 'app_developer');
   String get appWebsite => _appLocalizations.translate(key: 'app_website');
   String get appMail => _appLocalizations.translate(key: 'app_email');
