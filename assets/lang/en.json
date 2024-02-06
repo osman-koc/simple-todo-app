@@ -25,7 +25,7 @@
     "yes": "Yes",
     "email_password_wrong": "Email or password is incorrect!",
     "invalid_email": "Invalid e-mail!",
-    "invalid_password": "Invalid password! (Min 7 characters)",
+    "invalid_password": "Invalid password! (Min 8 characters)",
     "user_not_saved": "Registration failed. Check the information and try again.",
     "error_save": "Server error: Registration failed.",
     "my_account": "My Account",

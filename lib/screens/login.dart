@@ -78,9 +78,9 @@ class LoginPageState extends State<LoginPage> {
       double screenWidth, double screenHeight, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (UserHelper.isValidEmail(_userMail)) {
+        if (UserHelper.isNotValidEmail(_userMail)) {
           ConstToast.error(context.translate.invalidEmail);
-        } else if (UserHelper.isValidPassword(_userPassword)) {
+        } else if (UserHelper.isNotValidPassword(_userPassword)) {
           ConstToast.error(context.translate.invalidPassword);
         } else {
           _loginUser().then((user) {
@@ -289,6 +289,9 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Future<User?> _loginUser() async => _handleSignIn().catchError((e) {
+        if (kDebugMode) {
+          print(e);
+        }
         ConstToast.error(context.translate.emailOrPasswordWrong);
         return null;
       });

@@ -12,14 +12,20 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firebase.initializeApp(),
+      future: Firebase.initializeApp().whenComplete(() {
+        if (kDebugMode) {
+          print("Connected Firebase.");
+        }
+      }),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const LoginPage();
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
-          return checkUserAlreadyLogin() ? const HomeScreen() : const LoginPage();
+          return checkUserAlreadyLogin()
+              ? const HomeScreen()
+              : const LoginPage();
         }
 
         return const LoadingScreen();

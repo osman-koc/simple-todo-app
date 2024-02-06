@@ -102,9 +102,9 @@ class RegisterScreenState extends State<RegisterScreen> {
       double screenWidth, double screenHeight, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (UserHelper.isValidEmail(_userMail)) {
+        if (UserHelper.isNotValidEmail(_userMail)) {
           ConstToast.error(context.translate.invalidEmail);
-        } else if (UserHelper.isValidPassword(_userPassword)) {
+        } else if (UserHelper.isNotValidPassword(_userPassword)) {
           ConstToast.error(context.translate.invalidPassword);
         } else {
           _signUpUser().then((user) {
@@ -198,8 +198,8 @@ class RegisterScreenState extends State<RegisterScreen> {
               Icon(Icons.email, color: AppColors(context).tdDeepOrangeAccent),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide:
-                BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
+            borderSide: BorderSide(
+                color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -249,8 +249,8 @@ class RegisterScreenState extends State<RegisterScreen> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide:
-                BorderSide(color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
+            borderSide: BorderSide(
+                color: AppColors(context).tdDeepOrangeAccent, width: 1.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
@@ -310,6 +310,9 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<User?> _signUpUser() async => _handleSignIn().catchError((e) {
+        if (kDebugMode) {
+          print(e);
+        }
         ConstToast.error(context.translate.userNotSaved);
         return null;
       });

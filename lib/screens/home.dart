@@ -126,14 +126,16 @@ class _HomeScreenState extends State<HomeScreen> {
               minimumSize: const Size(60, 60),
               elevation: 10,
             ),
-            child: const Text(
+            child: Text(
               '+',
               style: TextStyle(
                 fontSize: 40,
+                color: AppColors(context).tdBGColor
               ),
             ),
           ),
         ),
+        const SizedBox(height: 50)
       ]),
     );
   }

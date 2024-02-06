@@ -25,7 +25,7 @@
     "yes": "Evet",
     "email_password_wrong": "E-posta veya şifre hatalı!",
     "invalid_email": "Geçersiz e-posta adresi!",
-    "invalid_password": "Geçersiz şifre! (Min 7 karakter)",
+    "invalid_password": "Geçersiz şifre! (Min 8 karakter)",
     "user_not_saved": "Kayıt yapılamadı. Bilgileri kontrol edip tekrar deneyin.",
     "error_save": "Sunucu hatası: Kayıt yapılamadı.",
     "my_account": "Hesabım",

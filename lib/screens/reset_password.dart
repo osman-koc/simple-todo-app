@@ -62,7 +62,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
       double screenWidth, double screenHeight, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (UserHelper.isValidEmail(_userMail)) {
+        if (UserHelper.isNotValidEmail(_userMail)) {
           ConstToast.error(context.translate.invalidEmail);
         } else {
           _passwordReset().then((r) {
