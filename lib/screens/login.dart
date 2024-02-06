@@ -21,6 +21,7 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   String? _userMail, _userPassword;
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +78,9 @@ class LoginPageState extends State<LoginPage> {
       double screenWidth, double screenHeight, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (UserHelper.isValidEmail(_userMail)) {
+        if (UserHelper.isNotValidEmail(_userMail)) {
           ConstToast.error(context.translate.invalidEmail);
-        } else if (UserHelper.isValidPassword(_userPassword)) {
+        } else if (UserHelper.isNotValidPassword(_userPassword)) {
           ConstToast.error(context.translate.invalidPassword);
         } else {
           _loginUser().then((user) {
@@ -218,12 +219,23 @@ class LoginPageState extends State<LoginPage> {
         ],
       ),
       child: TextField(
-        obscureText: true,
+        obscureText: !_passwordVisible,
         decoration: InputDecoration(
           hintText: context.translate.password,
           hintStyle: const TextStyle(color: Colors.grey),
           prefixIcon: Icon(Icons.password,
               color: AppColors(context).tdDeepOrangeAccent),
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+            icon: Icon(
+              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+              color: AppColors(context).tdDeepOrangeAccent,
+            ),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
             borderSide: BorderSide(

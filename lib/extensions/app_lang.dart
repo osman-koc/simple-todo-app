@@ -8,7 +8,6 @@ class AppLangTranslations {
   AppLangTranslations(this._appLocalizations);
 
   String get appName => _appLocalizations.translate(key: 'app_name');
-  String get appVersion => _appLocalizations.translate(key: 'app_version');
   String get appDeveloper => _appLocalizations.translate(key: 'app_developer');
   String get appWebsite => _appLocalizations.translate(key: 'app_website');
   String get appMail => _appLocalizations.translate(key: 'app_email');
@@ -63,9 +62,12 @@ class AppLangTranslations {
   String get deleteItemSuccessMessage => _appLocalizations.translate(key: 'delete_item_success_message');
   String get deleteItemErrorMessage => _appLocalizations.translate(key: 'delete_item_error_message');
   String get todoItemUpdateHeader => _appLocalizations.translate(key: 'todo_item_update_header');
+  String get todoItemExistsMesage => _appLocalizations.translate(key: 'todo_item_exists_message');
   String get enterNewValue => _appLocalizations.translate(key: 'enter_new_value');
   String get cancel => _appLocalizations.translate(key: 'cancel');
   String get save => _appLocalizations.translate(key: 'save');
+  String get updateDoneItemError => _appLocalizations.translate(key: 'update_done_item_error_message');
+  String get noRecords => _appLocalizations.translate(key: 'no_records_found');
 }
 
 extension AppLangContextExtension on BuildContext {

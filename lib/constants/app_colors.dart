@@ -14,9 +14,13 @@ class AppColors {
   Color get tdDeepOrangeAccent => Colors.deepOrangeAccent;
   Color get tdGrey => Colors.grey;
   Color get tdGreen => Colors.green;
+  Color get tdBlue => Colors.blue;
 
   Color get tdTextColor {
     return isDarkMode ? Colors.white : Colors.black;
+  }
+  Color get tdTextColorDone {
+    return isDarkMode ? Colors.white70 : Colors.grey[600]!;
   }
 
   Color get tdBGColor {
@@ -25,6 +29,9 @@ class AppColors {
 
   Color get tdInputBgColor {
     return isDarkMode ? Colors.grey[900]! : const Color(0xFFEEEFF5);
+  }
+  Color get tdInputBgColorDone {
+    return isDarkMode ? const Color(0xFF373134) : const Color(0xFFF6F7FA);
   }
 
   Color get tdButtonColor {

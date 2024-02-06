@@ -1,6 +1,5 @@
 {
     "app_name": "Simple ToDo",
-    "app_version": "1.1.0",
     "app_developer": "Osman Koç",
     "app_website": "www.osmkoc.com",
     "app_email": "info@osmkoc.com",
@@ -26,7 +25,7 @@
     "yes": "Yes",
     "email_password_wrong": "Email or password is incorrect!",
     "invalid_email": "Invalid e-mail!",
-    "invalid_password": "Invalid password! (Min 6 characters)",
+    "invalid_password": "Invalid password! (Min 8 characters)",
     "user_not_saved": "Registration failed. Check the information and try again.",
     "error_save": "Server error: Registration failed.",
     "my_account": "My Account",
@@ -43,11 +42,14 @@
     "password_reset_header_text": "Reset Password",
     "success_send_mail_message": "Password reset email has been sent successfully.",
     "todo_item_empty_message": "You cannot add an empty todo.",
+    "todo_item_exists_message": "An identical todo item already exists.",
     "todo_item_success_message": "Added successfully.",
     "delete_item_success_message": "Deleted successfully.",
     "delete_item_error_message": "Server error: Could not delete item.",
     "todo_item_update_header": "Update Item",
     "enter_new_value": "Enter new value",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "update_done_item_error_message": "You cannot update the completed item.",
+    "no_records_found": "No records found."
 }

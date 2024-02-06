@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:simpletodo/components/side_menu.dart';
 
 import 'package:simpletodo/constants/app_assets.dart';
 import 'package:simpletodo/constants/app_font_styles.dart';
 import 'package:simpletodo/extensions/app_lang.dart';
-import 'package:simpletodo/popup/about.dart';
-import 'package:simpletodo/screens/splash.dart';
 import 'package:simpletodo/util/toaster.dart';
 import 'package:simpletodo/model/todo.dart';
 import 'package:simpletodo/constants/app_colors.dart';
@@ -23,18 +22,33 @@ class _HomeScreenState extends State<HomeScreen> {
   final _todoController = TextEditingController();
   final _searchController = TextEditingController();
   final _updateController = TextEditingController();
+  final FocusNode _searchFocusNode = FocusNode();
 
   late User _user;
   late CollectionReference _userTodos;
+  bool _searchingEnable = false;
 
   @override
   void initState() {
     super.initState();
+
     _user = FirebaseAuth.instance.currentUser!;
     _userTodos = FirebaseFirestore.instance
         .collection('todos')
         .doc(_user.uid)
         .collection('user_todos');
+
+    _searchFocusNode.addListener(() {
+      if (!_searchFocusNode.hasFocus) {
+        setState(() {
+          setSearchingEnabled(_searchController.text.isNotEmpty);
+        });
+      }
+    });
+  }
+
+  void setSearchingEnabled(bool value) {
+    _searchingEnable = value;
   }
 
   @override
@@ -42,88 +56,103 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppColors(context).tdBGColor,
       appBar: _buildAppBar(),
+      drawer: SideMenu(currentUser: _user),
       body: Stack(
         children: [
-          Container(
+          todoListContainer(context),
+          !_searchingEnable
+              ? addNewItemAlign(context)
+              : const SizedBox(height: 1),
+        ],
+      ),
+    );
+  }
+
+  Align addNewItemAlign(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(children: [
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(
+              bottom: 22,
+              right: 18,
+              left: 20,
+            ),
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 15,
+              vertical: 8,
             ),
-            child: Column(
-              children: [
-                searchBox(context),
-                Expanded(
-                  child: todoListWidget(context),
+            decoration: BoxDecoration(
+              color: AppColors(context).tdBGColor,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 0.0),
+                  blurRadius: 10.0,
+                  spreadRadius: 0.0,
                 ),
-                const SizedBox(height: 120),
               ],
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: TextField(
+              controller: _todoController,
+              decoration: InputDecoration(
+                hintText: context.translate.addNewItem,
+                border: InputBorder.none,
+              ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 20,
-                    right: 20,
-                    left: 20,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors(context).tdBGColor,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 0.0),
-                        blurRadius: 10.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: _todoController,
-                    decoration: InputDecoration(
-                      hintText: context.translate.addNewItem,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  bottom: 20,
-                  right: 20,
-                ),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(AppAssets.loginBtn),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    _addToDoItem(_todoController.text);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors(context).tdButtonColor,
-                    minimumSize: const Size(60, 60),
-                    elevation: 10,
-                  ),
-                  child: const Text(
-                    '+',
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
-                  ),
-                ),
-              ),
-            ]),
+        ),
+        Container(
+          margin: const EdgeInsets.only(
+            bottom: 20,
+            right: 20,
           ),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage(AppAssets.loginBtn),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: ElevatedButton(
+            onPressed: () {
+              _addToDoItem(_todoController.text.trim());
+            },
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              backgroundColor: AppColors(context).tdButtonColor,
+              minimumSize: const Size(60, 60),
+              elevation: 10,
+            ),
+            child: const Text(
+              '+',
+              style: TextStyle(
+                fontSize: 40,
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Container todoListContainer(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 15,
+      ),
+      child: Column(
+        children: [
+          searchBox(context),
+          Expanded(
+            child: todoListWidget(context),
+          ),
+          !_searchingEnable
+              ? const SizedBox(height: 80)
+              : const SizedBox(height: 10),
         ],
       ),
     );
@@ -151,6 +180,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 .contains(_searchController.text.toLowerCase()))
             .toList();
 
+        if (foundToDo.isEmpty) {
+          return Container(
+            margin: const EdgeInsets.only(
+              top: 50,
+              bottom: 20,
+            ),
+            child: Text(
+              context.translate.noRecords,
+              style: TextStyle(
+                color: AppColors(context).tdTextColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          );
+        }
+
         return ListView(
           children: [
             Container(
@@ -173,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 todo: item,
                 onToDoChanged: _handleToDoUpdate,
                 onDeleteItem: _deleteToDoItem,
-                onCheckItem: _checkToDoItem,
+                onCheckItem: _updateStatusToDoItem,
               ),
           ],
         );
@@ -192,15 +238,39 @@ class _HomeScreenState extends State<HomeScreen> {
         onChanged: (value) {
           setState(() {
             _searchController.text = value;
+            setSearchingEnabled(true);
           });
         },
+        onTap: () {
+          setState(() {
+            setSearchingEnabled(true);
+          });
+        },
+        onEditingComplete: () {
+          setState(() {
+            setSearchingEnabled(_searchController.text.isNotEmpty);
+            _searchFocusNode.unfocus();
+          });
+        },
+        focusNode: _searchFocusNode,
         controller: _searchController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(0),
-          prefixIcon: Icon(
-            Icons.search,
-            color: AppColors(context).tdTextColor,
-            size: 20,
+          prefixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_searchingEnable) {
+                  _searchController.clear();
+                  _searchFocusNode.unfocus();
+                  setSearchingEnabled(false);
+                }
+              });
+            },
+            child: Icon(
+              _searchingEnable ? Icons.close : Icons.search,
+              color: AppColors(context).tdTextColor,
+              size: 20,
+            ),
           ),
           prefixIconConstraints: const BoxConstraints(
             maxHeight: 20,
@@ -216,6 +286,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _handleToDoUpdate(ToDoModel todo) async {
     if (todo.id == null) return;
+    if (todo.isDone) {
+      ConstToast.error(context.translate.updateDoneItemError);
+      return;
+    }
+
     _updateController.text = todo.todoText ?? '';
     showUpdateDialog(todo);
   }
@@ -241,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             TextButton(
               onPressed: () {
-                String newTodoText = _updateController.text;
+                String newTodoText = _updateController.text.trim();
                 if (newTodoText.isEmpty) {
                   ConstToast.error(context.translate.todoItemEmptyMessage);
                 } else {
@@ -257,12 +332,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _checkToDoItem(ToDoModel todo) async {
+  void _updateStatusToDoItem(ToDoModel todo) async {
     await _userTodos.doc(todo.id).update({'isDone': !todo.isDone});
   }
 
   void _updateToDoItem(String id, String newTodoText) async {
-    await _userTodos.doc(id).update({'todoText': newTodoText});
+    await itemCheck(id, newTodoText, () async {
+      await _userTodos.doc(id).update({'todoText': newTodoText});
+    });
   }
 
   void _deleteToDoItem(String id) {
@@ -276,9 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _addToDoItem(String toDoText) async {
-    if (toDoText.trim().isEmpty) {
-      ConstToast.error(context.translate.todoItemEmptyMessage);
-    } else {
+    await itemCheck(null, toDoText, () async {
       await _userTodos.add({
         'todoText': toDoText,
         'isDone': false,
@@ -289,6 +364,28 @@ class _HomeScreenState extends State<HomeScreen> {
       }).catchError((error) {
         ConstToast.error(context.translate.errorSave);
       });
+    });
+  }
+
+  Future itemCheck(
+      String? id, String toDoText, void Function() onSuccessCallback) async {
+    toDoText = toDoText.trim();
+    if (toDoText.isEmpty) {
+      ConstToast.error(context.translate.todoItemEmptyMessage);
+    } else {
+      Query query = _userTodos.where('todoText', isEqualTo: toDoText);
+      query.get().then((snapshot) {
+        bool itemExists = id == null
+            ? snapshot.docs.isNotEmpty
+            : snapshot.docs.where((x) => x.id != id).isNotEmpty;
+        if (itemExists) {
+          ConstToast.error(context.translate.todoItemExistsMesage);
+        } else {
+          onSuccessCallback();
+        }
+      }).catchError((error) {
+        ConstToast.error(context.translate.errorSave);
+      });
     }
   }
 
@@ -296,108 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return AppBar(
       backgroundColor: AppColors(context).tdBGColor,
       elevation: 0,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          menuWidget(),
-          profileWidget(),
-        ],
-      ),
+      iconTheme: IconThemeData(color: AppColors(context).tdTextColor),
     );
-  }
-
-  SizedBox menuWidget() {
-    return SizedBox(
-      height: 40,
-      width: 40,
-      child: PopupMenuButton<String>(
-        offset: const Offset(0, 40),
-        onSelected: (value) async {
-          if (value == context.translate.about) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const AboutScreenPopup();
-              },
-            );
-          }
-        },
-        itemBuilder: (BuildContext context) {
-          return [
-            PopupMenuItem<String>(
-              value: context.translate.home,
-              child: ListTile(
-                title: Text(context.translate.home),
-                onTap: () {
-                  Navigator.of(context).pop(context.translate.home);
-                },
-              ),
-            ),
-            PopupMenuItem<String>(
-              value: context.translate.about,
-              child: ListTile(
-                title: Text(context.translate.about),
-                onTap: () {
-                  Navigator.of(context).pop(context.translate.about);
-                },
-              ),
-            ),
-          ];
-        },
-        child: Container(
-          padding: const EdgeInsets.only(left: 5),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Icon(
-              Icons.menu,
-              color: AppColors(context).tdTextColor,
-              size: 30,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  SizedBox profileWidget() {
-    return SizedBox(
-      height: 40,
-      width: 40,
-      child: PopupMenuButton<String>(
-        offset: const Offset(0, 40),
-        onSelected: (value) async {
-          if (value == context.translate.logout) {
-            await _logout();
-          }
-        },
-        itemBuilder: (BuildContext context) {
-          return [
-            PopupMenuItem<String>(
-              value: context.translate.logout,
-              child: ListTile(
-                title: Text(context.translate.logout),
-                onTap: () {
-                  Navigator.of(context).pop(context.translate.logout);
-                },
-              ),
-            ),
-          ];
-        },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.asset(AppAssets.defaultUserAvatar),
-        ),
-      ),
-    );
-  }
-
-  _logout() async {
-    await FirebaseAuth.instance
-        .signOut()
-        .then((value) => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const SplashScreen()),
-            ))
-        .catchError((error) => ConstToast.error(context.translate.errorLogout));
   }
 }

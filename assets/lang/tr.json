@@ -1,6 +1,5 @@
 {
     "app_name": "Simple ToDo",
-    "app_version": "1.2.0",
     "app_developer": "Osman Koç",
     "app_website": "www.osmkoc.com",
     "app_email": "info@osmkoc.com",
@@ -26,7 +25,7 @@
     "yes": "Evet",
     "email_password_wrong": "E-posta veya şifre hatalı!",
     "invalid_email": "Geçersiz e-posta adresi!",
-    "invalid_password": "Geçersiz şifre! (Min 6 karakter)",
+    "invalid_password": "Geçersiz şifre! (Min 8 karakter)",
     "user_not_saved": "Kayıt yapılamadı. Bilgileri kontrol edip tekrar deneyin.",
     "error_save": "Sunucu hatası: Kayıt yapılamadı.",
     "my_account": "Hesabım",
@@ -44,10 +43,13 @@
     "success_send_mail_message": "Şifre sıfırlama maili başarıyla gönderildi.",
     "todo_item_empty_message": "Boş bir şey ekleyemezsiniz.",
     "todo_item_success_message": "Başarıyla eklendi.",
+    "todo_item_exists_message": "Aynı değerde bir ToDo kaydınız zaten var.",
     "delete_item_success_message": "Başarıyla silindi.",
     "delete_item_error_message": "Sunucu hatası: Kayıt silinemedi.",
     "todo_item_update_header": "Güncelle",
     "enter_new_value": "Yeni değeri girin",
     "cancel": "İptal",
-    "save": "Kaydet"
+    "save": "Kaydet",
+    "update_done_item_error_message": "Tamamlanan öğeyi güncelleyemezsiniz.",
+    "no_records_found": "Herhangi bir kayıt bulunamadı."
 }
