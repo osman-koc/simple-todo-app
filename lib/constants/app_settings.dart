@@ -27,11 +27,10 @@ class AppSettings {
   ];
 
   static Locale? localeResolutionCallback(locale, supportedLocales) {
-    for (var supportedLocale in supportedLocales) {
-      if (locale != null &&
-          supportedLocale.languageCode == locale.languageCode) {
-        return supportedLocale;
-      }
+    if (locale != null) {
+      final currentLocale = supportedLocales
+          .firtWhere((x) => x.languageCode == locale.languageCode);
+      if (currentLocale != null) return currentLocale;
     }
     return supportedLocales.first;
   }
