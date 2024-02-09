@@ -10,7 +10,7 @@ You can download this application from the [Google Play Store](https://play.goog
 
 ### Light Mode
 
-<img src="screenshot/android/login.jpg" width="150px"></img> &nbsp; <img src="screenshot/android/register.jpg" width="150px" /> &nbsp; <img src="screenshot/android/resetpassword.jpg" width="150px" /> &nbsp; <img src="screenshot/android/home.jpg" width="150px" />
+<img src="screenshot/android/light_login.jpg" width="150px"></img> &nbsp; <img src="screenshot/android/light_register.jpg" width="150px" /> &nbsp; <img src="screenshot/android/light_resetpassword.jpg" width="150px" /> &nbsp; <img src="screenshot/android/light_home.jpg" width="150px" />
 
 ### Dark Mode
 
