@@ -10,11 +10,11 @@ You can download this application from the [Google Play Store](https://play.goog
 
 ### Light Mode
 
-<img src="screenshot/login.jpg" width="150px"></img> &nbsp; <img src="screenshot/register.jpg" width="150px" /> &nbsp; <img src="screenshot/resetpassword.jpg" width="150px" /> &nbsp; <img src="screenshot/home.jpg" width="150px" />
+<img src="screenshot/android/login.jpg" width="150px"></img> &nbsp; <img src="screenshot/android/register.jpg" width="150px" /> &nbsp; <img src="screenshot/android/resetpassword.jpg" width="150px" /> &nbsp; <img src="screenshot/android/home.jpg" width="150px" />
 
 ### Dark Mode
 
-<img src="screenshot/dark_login.jpg" width="150px"></img> &nbsp; <img src="screenshot/dark_register.jpg" width="150px" /> &nbsp; <img src="screenshot/dark_resetpassword.jpg" width="150px" /> &nbsp; <img src="screenshot/dark_home.jpg" width="150px" />
+<img src="screenshot/android/dark_login.jpg" width="150px"></img> &nbsp; <img src="screenshot/android/dark_register.jpg" width="150px" /> &nbsp; <img src="screenshot/android/dark_resetpassword.jpg" width="150px" /> &nbsp; <img src="screenshot/android/dark_home.jpg" width="150px" />
 
 ## Getting Started
 1. Clone the repository:
