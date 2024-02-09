@@ -118,11 +118,11 @@
             "size" : "1024x1024",
             "idiom" : "ios-marketing",
             "scale" : "1x",
-            "filename" : "ItunesArtwork@2x.png"
+            "filename" : "iTunesArtwork@2x.png"
         }
     ],
     "info":{
         "version":1,
-        "author":"easyappicon"
+        "author":"xcode"
     }
 }
