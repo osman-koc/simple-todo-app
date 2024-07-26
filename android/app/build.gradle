@@ -52,7 +52,7 @@ android {
     defaultConfig {
         applicationId "com.osmkoc.simpletodo"
         minSdkVersion 21 //flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 34 //flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
